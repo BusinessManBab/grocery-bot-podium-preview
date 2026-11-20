@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Preview of the end-of-match podium and fun-stat awards for Grocery Bot ranked games.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Grocery Bot Podium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a feature preview. The live component first, then where it appears, then the reference list of awards. */
+:root {
+  --bg: #f4f2f1; --surface: #ffffff; --fg: #171412; --fg-2: #463f3a; --subtle: #6b635e; --rule: #e1dcd8;
+  --accent: #c8102e; --gold: #b8860b; --praise-bg: #fbf0c6; --praise-fg: #7a5600; --tease-bg: #f3e4f7; --tease-fg: #6c3b84;
+  --font: "Mulish", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141110; --surface: #1f1b19; --fg: #f2eeea; --fg-2: #d4ccc5; --subtle: #a69d96; --rule: #39322e;
+  --accent: #ef5a70; --gold: #f1c232; --praise-bg: #3d3214; --praise-fg: #f5d77a; --tease-bg: #33233b; --tease-fg: #dcb6ec; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #141110; --surface: #1f1b19; --fg: #f2eeea; --fg-2: #d4ccc5; --subtle: #a69d96; --rule: #39322e;
+  --accent: #ef5a70; --gold: #f1c232; --praise-bg: #3d3214; --praise-fg: #f5d77a; --tease-bg: #33233b; --tease-fg: #dcb6ec; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.55; }
+.page { max-width: 1120px; margin: 0 auto; padding-block: 40px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 64px; }
+h1, h2, h3, p, figure, ul { margin: 0; }
+h1, h2 { text-wrap: balance; letter-spacing: -.015em; }
+code { font-family: var(--mono); font-size: .88em; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1px 6px; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+.intro { display: grid; gap: 18px; max-width: 70ch; }
+.eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 900; line-height: 1.05; }
+.lede { font-size: 19px; color: var(--fg-2); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; font-weight: 700; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--rule); background: var(--surface); color: var(--fg-2); }
+.chip strong { color: var(--fg); font-weight: 800; }
+
+section { display: grid; gap: 18px; min-width: 0; }
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+.head > div { display: grid; gap: 6px; max-width: 68ch; min-width: 0; }
+h2 { font-size: 28px; font-weight: 900; line-height: 1.15; }
+.head p, .note { color: var(--fg-2); }
+.note { font-size: 14px; }
+
+.replay { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; border-radius: 21px; border: 0; background: var(--fg); color: var(--bg);
+  font: 800 15px/1 var(--font); cursor: pointer; }
+.replay svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* The live component keeps the product's own light look in both themes. */
+.stage { border-radius: 24px; padding: 14px; background: repeating-linear-gradient(135deg, #d7cfc4 0 12px, #cfc6ba 12px 24px); min-width: 0; }
+.demo { --ink: #171412; --ink-2: #463f3a; --muted: #6b635e; --line: #e1dcd8; --red: #c8102e; color-scheme: light; color: #171412; font-family: "Mulish", Arial, sans-serif; line-height: 1.4; }
+.demo .pd.pd-inline { position: static; display: block; width: 100%; max-height: none; margin: 0; overflow: hidden; border-radius: 18px; box-shadow: 0 10px 30px rgba(23, 20, 18, .18); }
+.demo .pd-close, .demo .pd-foot { display: none; }
+.demo .pd-table { margin-bottom: 26px; }
+.demo h2, .demo h3, .demo h4, .demo p, .demo ul, .demo ol { margin: 0; padding: 0; }
+.demo ul, .demo ol { list-style: none; }
+.demo .pd-tile-title { margin-top: 9px; }
+
+.shots { display: grid; grid-template-columns: minmax(0, 3.2fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+figure { display: grid; gap: 10px; min-width: 0; }
+figure img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); background: var(--surface); }
+figcaption { font-size: 14px; color: var(--subtle); }
+.jumps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.jumps figure img { border-radius: 12px; }
+.jumps figcaption { font-weight: 800; color: var(--fg-2); }
+.jumps figcaption span { font-weight: 400; color: var(--subtle); }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 16px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; vertical-align: middle; padding: 11px 14px; border-bottom: 1px solid var(--rule); }
+tbody tr:last-child > * { border-bottom: 0; }
+thead th { font-size: 11px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--subtle); background: var(--bg); white-space: nowrap; }
+tbody th { font-weight: 800; white-space: nowrap; }
+.aw-icon { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; margin-right: 10px; vertical-align: middle; background: var(--praise-bg); color: var(--praise-fg); }
+.aw-icon[data-tone="cheeky"] { background: var(--tease-bg); color: var(--tease-fg); }
+.aw-icon svg { width: 17px; height: 17px; fill: currentColor; }
+td { color: var(--fg-2); min-width: 180px; }
+.sample { font-variant-numeric: tabular-nums; }
+.sample strong { color: var(--fg); font-weight: 900; }
+.who { display: block; font-size: 12px; color: var(--subtle); }
+.none { color: var(--subtle); font-style: italic; }
+.tone { font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--praise-bg); color: var(--praise-fg); }
+.tone[data-tone="cheeky"] { background: var(--tease-bg); color: var(--tease-fg); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.fact { display: grid; gap: 6px; align-content: start; padding: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--rule); }
+.fact h3 { font-size: 16px; font-weight: 900; }
+.fact p { font-size: 15px; color: var(--fg-2); }
+
+@media (max-width: 760px) {
+  .page { gap: 48px; padding-block: 28px 56px; }
+  .lede { font-size: 17px; }
+  h2 { font-size: 24px; }
+  .stage { padding: 6px; border-radius: 18px; }
+  .shots { grid-template-columns: minmax(0, 1fr); }
+  .shots figure:last-child { max-width: 320px; }
+  .jumps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .replay { display: none; } }
+</style>
+<style>.pd{--gold: #f1c232;--silver: #cfd4da;--bronze: #d9925a;--paper: #fffdf7;--hair: #e7e0d6;width:min(1080px,calc(100% - 32px));max-width:none;max-height:calc(100% - 32px);padding:0;border:0;border-radius:22px;background:var(--paper);color:var(--ink, #171412);box-shadow:0 30px 80px #17141259;overflow:auto;overscroll-behavior:contain}.pd::backdrop{background:#17141280}.pd[open]{animation:pd-in .35s cubic-bezier(.2,.8,.2,1) both}.pd-sheet{border-top:4px solid var(--red, #c8102e)}.pd .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.pd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 26px 0}.pd-eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted, #6b635e)}.pd-title{font-size:30px;font-weight:900;letter-spacing:-.01em;line-height:1.15;margin-top:2px}.pd-close{width:40px;height:40px;flex:none;display:grid;place-items:center;border:1px solid var(--line, #e1dcd8);border-radius:50%;background:#fff;cursor:pointer}.pd-close:hover{border-color:var(--ink, #171412)}.pd-close svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}.pd-stage{position:relative;padding:64px 26px 0;overflow:hidden}.pd-podium{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;column-gap:14px;max-width:760px;margin:0 auto}.pd-podium[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px}.pd-podium[data-count="1"]{grid-template-columns:minmax(0,1fr);max-width:260px}.pd-spot{display:grid;grid-row:1 / span 2;grid-template-rows:subgrid;min-width:0}.pd-spot[data-slot=left]{grid-column:1}.pd-spot[data-slot=center]{grid-column:2}.pd-spot[data-slot=right]{grid-column:3}.pd-podium[data-count="1"] .pd-spot{grid-column:1}.pd-top{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center}.pd-avatar{position:relative;width:112px;height:118px;display:flex;align-items:flex-end;justify-content:center;animation:pd-drop .55s cubic-bezier(.3,1.4,.5,1) both}.pd-spot[data-slot=center] .pd-avatar{width:150px;height:164px}.pd-jumper{position:relative;z-index:1;width:100%;height:100%;transform-origin:50% 100%}.pd-bot,.pd-bot svg{display:block;width:100%;height:100%}.pd-bot .pd-still{width:82%;height:92%;margin:8% auto 0}.pd-shadow{position:absolute;left:22%;right:22%;bottom:-3px;height:12px;border-radius:50%;background:#17141229}.pd-spot[data-slot=center] .pd-jumper{animation:pd-jump 1.15s 1.2s infinite both}.pd-spot[data-slot=center] .pd-shadow{animation:pd-shadow 1.15s 1.2s infinite both}.pd-spot[data-slot=left] .pd-jumper{animation:pd-hop 2.6s 1.6s infinite both}.pd-spot[data-slot=right] .pd-jumper{animation:pd-hop 2.6s 2.3s infinite both}.pd-who{min-width:0;max-width:100%;margin:6px 0 10px}.pd-name{font-size:17px;font-weight:900;line-height:1.2;overflow-wrap:anywhere}.pd-spot[data-slot=center] .pd-name{font-size:21px}.pd-score{font-size:13px;color:var(--muted, #6b635e);font-variant-numeric:tabular-nums;margin-top:2px}.pd-score strong{color:var(--ink, #171412);font-weight:900}.pd-step{position:relative;width:100%;height:92px;display:grid;place-items:center;border-radius:14px 14px 0 0;background:linear-gradient(180deg,color-mix(in srgb,var(--step) 70%,#fff),var(--step));box-shadow:inset 0 -10px #17141214,inset 0 5px 0 var(--seat);transform-origin:50% 100%;animation:pd-rise .6s cubic-bezier(.2,.9,.3,1.15) both}.pd-spot[data-slot=left] .pd-step{--step: var(--silver);height:118px;animation-delay:.25s}.pd-spot[data-slot=center] .pd-step{--step: var(--gold);height:158px;animation-delay:.5s}.pd-spot[data-slot=right] .pd-step{--step: var(--bronze);height:84px;animation-delay:.05s}.pd-spot[data-slot=left] .pd-avatar{animation-delay:.6s}.pd-spot[data-slot=center] .pd-avatar{animation-delay:.85s}.pd-spot[data-slot=right] .pd-avatar{animation-delay:.4s}.pd-rank{font-size:46px;font-weight:900;color:#171412c7;line-height:1}.pd-spot[data-slot=center] .pd-rank{font-size:62px}.pd-award{display:flex;flex-direction:column;align-items:center;gap:2px;padding:16px 10px 18px;margin-top:0;border-radius:0 0 14px 14px;background:#fff;border:1px solid var(--hair);border-top:0;text-align:center;animation:pd-up .5s 1.2s both}.pd-award.is-empty{background:transparent;border:0}.pd-award-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#fbf0c6;color:#8a6300;margin-bottom:4px}.pd-award[data-tone=cheeky] .pd-award-icon{background:#f3e4f7;color:#6c3b84}.pd-award-icon svg,.pd-tile-icon svg{width:22px;height:22px;fill:currentColor}.pd-award-title{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted, #6b635e)}.pd-award-value{font-size:32px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}.pd-award-unit{font-size:13px;font-weight:700;color:var(--ink-2, #463f3a);line-height:1.3}.pd-confetti{position:absolute;inset:0;pointer-events:none}.pd-confetti i{position:absolute;top:-16px;left:var(--x);width:8px;height:13px;border-radius:2px;background:var(--c);opacity:0;animation:pd-fall var(--s) var(--d) linear infinite}.pd-confetti i:nth-child(3n){width:10px;height:10px;border-radius:50%}.pd-section{padding:26px 26px 0}.pd-section h3{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted, #6b635e);margin-bottom:12px}.pd-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}.pd-tile{display:flex;gap:12px;padding:14px;border:1px solid var(--hair);border-radius:14px;background:#fff;min-width:0}.pd-tile-icon{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:#fbf0c6;color:#8a6300}.pd-tile[data-tone=cheeky] .pd-tile-icon{background:#f3e4f7;color:#6c3b84}.pd-tile-body{min-width:0}.pd-tile-title{margin:9px 0 0;font-size:15px;font-weight:900;line-height:1.3}.pd-tile-who{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:13px;font-weight:800;margin-top:3px;overflow-wrap:anywhere}.pd-winner{display:inline-flex;align-items:center;gap:5px;min-width:0}.pd-tile-value{font-size:13px;color:var(--ink-2, #463f3a);margin-top:4px}.pd-tile-value strong{font-size:19px;font-weight:900;color:var(--ink, #171412);font-variant-numeric:tabular-nums}.pd-tile-how{font-size:12px;color:var(--muted, #6b635e);margin-top:2px}.pd-face{flex:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px var(--seat, var(--hair));display:inline-grid;place-items:center;overflow:hidden;vertical-align:middle}.pd-face svg{width:15px;height:18px;display:block}.pd-numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.pd-numbers li{padding:12px 14px;border-radius:12px;background:#f4efe6}.pd-numbers strong{display:block;font-size:24px;font-weight:900;font-variant-numeric:tabular-nums}.pd-numbers span{font-size:13px;color:var(--ink-2, #463f3a)}.pd-table{margin:26px 26px 0;border:1px solid var(--hair);border-radius:14px;background:#fff}.pd-table summary{padding:14px 16px;font-weight:900;cursor:pointer}.pd-table-wrap{overflow-x:auto;border-top:1px solid var(--hair)}.pd-table table{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;min-width:100%}.pd-table th,.pd-table td{padding:8px 10px;white-space:nowrap;text-align:left;border-bottom:1px solid #f0ebe3}.pd-table thead th{font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--muted, #6b635e);vertical-align:bottom}.pd-table .num{text-align:right}.pd-table tbody th{font-weight:800}.pd-table tbody th>*{vertical-align:middle}.pd-table tbody th .pd-face{margin-right:6px}.pd-sticky{position:sticky;left:0;background:#fff;z-index:1}.pd-fine{padding:10px 16px 14px;font-size:12px;color:var(--muted, #6b635e)}.pd-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:24px 26px 26px}.pd-primary{height:44px;padding:0 20px;border:0;border-radius:22px;background:var(--ink, #171412);color:#fff;font-weight:900;font-size:15px;cursor:pointer}.pd-primary:hover{background:#000}.pd-link{font-weight:800;text-decoration:underline;text-underline-offset:3px}.g-podium{display:flex;align-items:center;gap:7px;height:44px;padding:0 16px 0 13px;border-radius:22px;border:1px solid var(--line);background:#fffdf7;color:var(--ink);font:inherit;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 6px 24px #17141214;margin-left:auto}.g-podium[hidden]{display:none}.g-podium:hover{border-color:var(--ink)}.g-podium svg{width:18px;height:18px;fill:#b8860b}.g-podium+.g-exit{margin-left:0}@keyframes pd-in{0%{opacity:0;transform:translateY(16px) scale(.98)}}@keyframes pd-rise{0%{transform:scaleY(0)}}@keyframes pd-drop{0%{opacity:0;transform:translateY(-60px)}60%{opacity:1}}@keyframes pd-up{0%{opacity:0;transform:translateY(12px)}}@keyframes pd-jump{0%{transform:translateY(0) scale(1.1,.88);animation-timing-function:ease-out}14%{transform:translateY(0) scale(.92,1.1);animation-timing-function:cubic-bezier(.2,.7,.35,1)}46%{transform:translateY(-52px) scale(.98,1.03);animation-timing-function:cubic-bezier(.6,0,.9,.5)}74%{transform:translateY(0) scale(.96,1.06);animation-timing-function:ease-out}82%{transform:translateY(0) scale(1.14,.84);animation-timing-function:ease-in-out}92%{transform:translateY(0) scale(.98,1.02)}to{transform:translateY(0) scale(1.1,.88)}}@keyframes pd-shadow{0%,to{transform:scaleX(1.08);opacity:1}14%{transform:scaleX(.95);opacity:1}46%{transform:scaleX(.5);opacity:.45}74%{transform:scaleX(.95);opacity:.9}82%{transform:scaleX(1.15);opacity:1}}@keyframes pd-hop{0%,62%,to{transform:translateY(0) scale(1)}68%{transform:translateY(0) scale(1.06,.94)}78%{transform:translateY(-16px) scale(.97,1.04)}88%{transform:translateY(0) scale(1.05,.95)}94%{transform:translateY(0) scale(1)}}@keyframes pd-fall{0%{opacity:0;transform:translateZ(0) rotate(var(--r))}8%{opacity:1}85%{opacity:1}to{opacity:0;transform:translate3d(28px,520px,0) rotate(calc(var(--r) + 540deg))}}@media(prefers-reduced-motion:reduce){.pd[open],.pd-avatar,.pd-step,.pd-award,.pd-jumper,.pd-shadow{animation:none!important}.pd-confetti{display:none}}@media(max-width:760px){.pd{width:calc(100% - 20px);max-height:calc(100% - 20px);border-radius:18px}.pd-head{padding:18px 16px 0}.pd-title{font-size:24px}.pd-stage{padding:40px 10px 0}.pd-podium{column-gap:6px}.pd-avatar{width:72px;height:78px}.pd-spot[data-slot=center] .pd-avatar{width:96px;height:106px}.pd-spot[data-slot=center] .pd-jumper{animation-name:pd-jump-small}.pd-name,.pd-spot[data-slot=center] .pd-name{font-size:14px}.pd-score{font-size:11px}.pd-spot[data-slot=left] .pd-step{height:78px}.pd-spot[data-slot=center] .pd-step{height:104px}.pd-spot[data-slot=right] .pd-step{height:58px}.pd-rank{font-size:32px}.pd-spot[data-slot=center] .pd-rank{font-size:42px}.pd-award{padding:10px 4px 12px}.pd-award-icon{width:30px;height:30px}.pd-award-icon svg{width:17px;height:17px}.pd-award-title{font-size:10px;letter-spacing:.03em}.pd-award-value{font-size:20px}.pd-award-unit{font-size:11px}.pd-section{padding:22px 16px 0}.pd-tiles{grid-template-columns:minmax(0,1fr)}.pd-table{margin:22px 16px 0}.pd-foot{padding:20px 16px}.g-podium{width:36px;height:36px;padding:0;justify-content:center;margin-left:0}.g-podium-label{display:none}}@keyframes pd-jump-small{0%{transform:translateY(0) scale(1.1,.88);animation-timing-function:ease-out}14%{transform:translateY(0) scale(.92,1.1);animation-timing-function:cubic-bezier(.2,.7,.35,1)}46%{transform:translateY(-30px) scale(.98,1.03);animation-timing-function:cubic-bezier(.6,0,.9,.5)}74%{transform:translateY(0) scale(.96,1.06);animation-timing-function:ease-out}82%{transform:translateY(0) scale(1.14,.84);animation-timing-function:ease-in-out}92%{transform:translateY(0) scale(.98,1.02)}to{transform:translateY(0) scale(1.1,.88)}}
+</style>
+
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <p class="eyebrow">Grocery Bot v2 · ranked games</p>
+    <h1>End-of-match podium</h1>
+    <p class="lede">When a ranked game ends, the top three bots step onto a podium. First place stands in the middle and jumps for joy. Under each bot is one award with its number, picked from 23 stats you can’t see on the leaderboard: kilometres driven, shop-robot steps, red lights, order fights lost and more.</p>
+    <div class="chips">
+      <span class="chip"><strong>Status:</strong> in review, not live yet</span>
+      <span class="chip"><strong>Branch:</strong> feat/town-rush-podium</span>
+      <span class="chip"><strong>Built:</strong> 20 Nov 2026</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="try-title">
+    <div class="head">
+      <div>
+        <h2 id="try-title">Try it</h2>
+        <p>This is the real component, running the stats of a simulated match: six built-in AIs, 600 ticks, medium traffic. The bot names are made up.</p>
+      </div>
+      <button class="replay" id="replay" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg>Replay the entrance</button>
+    </div>
+    <div class="stage"><div class="demo" id="demo" aria-live="off"></div></div>
+    <p class="note">Below the podium: every award of the match, the day in numbers, and a table with 29 stats per bot (open “Every bot’s stats”).</p>
+  </section>
+
+  <section aria-labelledby="where-title">
+    <div class="head">
+      <div>
+        <h2 id="where-title">On the game page</h2>
+        <p>The podium opens over the town map by itself when a live game or a replay reaches the final tick. A Podium button in the top bar brings it back, and <code>/game/CODE#podium</code> goes straight to it.</p>
+      </div>
+    </div>
+    <div class="shots">
+      <figure>
+        <img src="img/game-desktop.webp" width="1440" height="900" alt="The game page at the final tick with the podium open: Bananas Express first in the middle, Oat Runner second on the left, Kale Storm third on the right, each with an award card under their step.">
+        <figcaption>Desktop, at the final tick of game K7QM2X.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/game-phone.webp" width="780" height="1688" alt="The podium on a phone: the three steps side by side with smaller bots, and the match awards stacked below.">
+        <figcaption>Phone, 390 px wide.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="jump-title">
+    <div class="head">
+      <div>
+        <h2 id="jump-title">First place jumps for joy</h2>
+        <p>The winner shows its happy eyes and jumps in a loop with a squash on take-off and landing, while its shadow stays on the floor. Second and third wave and hop now and then. With reduced motion turned on there is no jumping and no confetti, and the numbers appear at once.</p>
+      </div>
+    </div>
+    <div class="jumps">
+      <figure><img src="img/jump-crouch.webp" width="300" height="500" alt="First place bot crouching, squashed wide."><figcaption>Crouch <span>0.00 s</span></figcaption></figure>
+      <figure><img src="img/jump-launch.webp" width="300" height="500" alt="First place bot stretching tall as it takes off."><figcaption>Take-off <span>0.16 s</span></figcaption></figure>
+      <figure><img src="img/jump-apex.webp" width="300" height="500" alt="First place bot at the top of its jump, shadow shrunk on the floor."><figcaption>Top <span>0.53 s</span></figcaption></figure>
+      <figure><img src="img/jump-land.webp" width="300" height="500" alt="First place bot squashing as it lands."><figcaption>Landing <span>0.94 s</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="board-title">
+    <div class="head">
+      <div>
+        <h2 id="board-title">From the leaderboard</h2>
+        <p>Every finished lobby under “Recent ranked games” gets a Podium button next to Watch replay. Players see the same button in their own match lobby as soon as their game ends.</p>
+      </div>
+    </div>
+    <figure>
+      <img src="img/leaderboard.webp" width="1116" height="300" alt="The Recent ranked games list on the leaderboard: each lobby row has a Podium button and a Watch replay button.">
+      <figcaption>Leaderboard with test data.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="awards-title">
+    <div class="head">
+      <div>
+        <h2 id="awards-title">The 23 awards</h2>
+        <p>Listed in podium order: each podium bot shows the highest award on this list that it won and no bot above it already shows. A bot that won nothing shows its best-ranked stat instead, for example “Road Warrior · 2nd”. Ties share an award, and an award nobody earned is left out.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Award</th><th scope="col">Goes to</th><th scope="col">In the sample match</th><th scope="col">Tone</th></tr></thead>
+        <tbody>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M956 752.32l-261.28-464.32h232c0.214 0.005 0.467 0.008 0.719 0.008 17.066 0 31.076-13.081 32.552-29.764l0.009-0.124c0.045-0.634 0.070-1.374 0.070-2.12 0-17.673-14.327-32-32-32-0.025 0-0.049 0-0.074 0l0.004-0h-830.92c-0.155-0.003-0.337-0.004-0.52-0.004-17.064 0-31.074 13.079-32.551 29.76l-0.009 0.124c-0.045 0.634-0.070 1.374-0.070 2.12 0 17.673 14.327 32 32 32 0.025 0 0.049-0 0.074-0l-0.004 0h233.28l-261.28 464.32c-2.586 4.515-4.111 9.924-4.111 15.69 0 8.543 3.348 16.305 8.803 22.044l-0.013-0.014c5.993 6.149 14.357 9.962 23.611 9.962 0.137 0 0.274-0.001 0.41-0.002l-0.021 0h367.32c8.837 0 16-7.163 16-16v0-78.92c-0.002-0.131-0.003-0.285-0.003-0.44 0-17.064 13.078-31.073 29.758-32.551l0.125-0.009c0.634-0.045 1.374-0.070 2.12-0.070 17.673 0 32 14.327 32 32 0 0.025-0 0.049-0 0.074l0-0.004v80c0 8.837 7.163 16 16 16v0h367.080c0.116 0.001 0.252 0.002 0.389 0.002 9.254 0 17.617-3.814 23.604-9.955l0.007-0.007c5.55-5.747 8.97-13.583 8.97-22.218 0-5.722-1.502-11.094-4.133-15.741l0.083 0.159zM544 560c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-64c0-17.673 14.327-32 32-32s32 14.327 32 32v0zM544 352c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-32c0-17.673 14.327-32 32-32s32 14.327 32 32v0z"/></svg></span>Road Warrior</th><td>Most kilometres on the truck odometers</td><td class="sample"><strong>74.8</strong> km driven <span class="who">Oat Runner</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M864.24 768v48c0 79.595-64.525 144.12-144.12 144.12s-144.12-64.525-144.12-144.12v0-48c0-17.673 14.327-32 32-32v0h224c0.071-0.001 0.156-0.001 0.24-0.001 17.673 0 32 14.327 32 32 0 0-0 0.001-0 0.001l0-0zM416 640h-224c-17.673 0-32 14.327-32 32v0 48c0 79.529 64.471 144 144 144s144-64.471 144-144v0-48c0-17.673-14.327-32-32-32v0zM304 64c-46.56 0-91.72 41.24-127.2 116-55.72 117.52-74.24 292 1.16 384 5.913 7.178 14.803 11.72 24.753 11.72 0.016 0 0.033-0 0.049-0l-0.003 0h202.2c0.014 0 0.030 0 0.047 0 9.951 0 18.84-4.542 24.709-11.665l0.044-0.055c75.4-92 56.88-266.6 1.16-384-35.52-74.76-80.64-116-126.92-116zM619.2 672h202.2c0.014 0 0.030 0 0.047 0 9.951 0 18.84-4.542 24.709-11.665l0.044-0.055c75.4-92 56.88-266.6 1.16-384-35.64-75.040-80.8-116.28-127.36-116.28s-91.56 41.24-127.080 116c-55.72 117.52-74.24 292 1.16 384 5.91 7.337 14.89 11.994 24.959 12l0.001 0z"/></svg></span>Step Counter</th><td>Shop robots walked the furthest</td><td class="sample"><strong>10,324</strong> robot steps in the shop <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96c-229.75 0-416 186.25-416 416s186.25 416 416 416c229.75 0 416-186.25 416-416v0c-0.25-229.65-186.35-415.75-415.976-416l-0.024-0zM320 560c0-26.51 21.49-48 48-48s48 21.49 48 48c0 26.51-21.49 48-48 48v0c-26.51 0-48-21.49-48-48v0zM634.64 753.72c-5.819 8.655-15.574 14.273-26.641 14.273-6.602 0-12.737-1.999-17.833-5.426l0.115 0.073c-26-17.28-46.28-26.64-78.28-26.64s-52.28 9.36-78.28 26.64c-4.88 3.167-10.847 5.051-17.255 5.051-17.673 0-32-14.327-32-32 0-10.873 5.423-20.479 13.711-26.262l0.104-0.069c33.72-22.44 65.96-37.36 113.72-37.36s80 14.92 113.72 37.36c8.655 5.819 14.273 15.574 14.273 26.641 0 6.602-1.999 12.737-5.426 17.833l0.073-0.115zM656 608c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0zM721.76 378.64l-192 128c-4.99 3.371-11.14 5.381-17.76 5.381s-12.77-2.010-17.874-5.453l0.114 0.072-192-128c-8.646-5.824-14.257-15.577-14.257-26.64 0-17.683 14.335-32.017 32.017-32.017 6.619 0 12.769 2.009 17.874 5.45l-0.114-0.072 174.24 116.2 174.24-116c4.991-3.369 11.141-5.377 17.76-5.377 17.683 0 32.017 14.335 32.017 32.017 0 11.063-5.611 20.816-14.143 26.568l-0.114 0.072z"/></svg></span>Grumpy Magnet</th><td>Most customers under 50 % happy, or never delivered</td><td class="sample"><strong>4</strong> unhappy customers <span class="who">Bananas Express &amp; Kale Storm</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96c-229.75 0-416 186.25-416 416s186.25 416 416 416c229.75 0 416-186.25 416-416v0c-0.25-229.65-186.35-415.75-415.976-416l-0.024-0zM368 384c26.51 0 48 21.49 48 48s-21.49 48-48 48c-26.51 0-48-21.49-48-48v0c0-26.51 21.49-48 48-48v0zM699.68 624c-41.16 71.16-109.56 112-187.68 112s-146.52-40.8-187.68-112c-3.133-4.86-4.995-10.796-4.995-17.167 0-17.673 14.327-32 32-32 12.25 0 22.893 6.884 28.271 16.994l0.084 0.173c29.88 51.64 76.84 80 132.32 80s102.44-28.4 132.32-80c5.462-10.283 16.104-17.167 28.355-17.167 17.673 0 32 14.327 32 32 0 6.371-1.862 12.307-5.071 17.294l0.076-0.127zM656 480c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0z"/></svg></span>Customer Whisperer</th><td>Most deliveries at 80 % happiness or more</td><td class="sample"><strong>37</strong> happy customers <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M480 192c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128v0c-70.692 0-128-57.308-128-128v0zM832 544c-114.56 0-167.24-53.2-223-109.48-14.12-14.28-28.72-29.040-44-42.32-148-128.56-384.88 90.92-394.88 100.32-5.897 5.808-9.551 13.879-9.551 22.804 0 17.673 14.327 32 32 32 8.218 0 15.713-3.098 21.38-8.19l-0.029 0.026c35.755-32.402 75.768-61.287 118.785-85.458l3.295-1.702c55.12-29.52 101.56-40.92 138.8-34.32l-216.16 497.56c-1.67 3.752-2.642 8.129-2.642 12.733 0 13.059 7.823 24.292 19.038 29.266l0.204 0.081c3.732 1.693 8.094 2.68 12.685 2.68 0.026 0 0.053-0 0.079-0l-0.004 0c0.004 0 0.009 0 0.014 0 13.058 0 24.29-7.822 29.265-19.036l0.081-0.204 134.36-309.080 124.28 88.8v207.52c0 17.673 14.327 32 32 32s32-14.327 32-32v0-224c0-0 0-0.001 0-0.001 0-10.694-5.246-20.164-13.305-25.974l-0.095-0.065-148.8-106.28 53.72-123.68c10.56 9.76 21.040 20.28 32 31.36 56.68 57.4 127.24 128.64 268.48 128.64 17.673 0 32-14.327 32-32s-14.327-32-32-32v0z"/></svg></span>Zebra Crossing Saint</th><td>Let the most pedestrians cross</td><td class="sample"><strong>37</strong> stops for pedestrians <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M928 832h-73.24l-241.080-693c-8.955-25.24-32.623-42.993-60.439-43l-82.481-0c-27.807 0.001-51.472 17.737-60.301 42.513l-0.139 0.447-241.080 693.040h-73.24c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h832c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM381.72 416h260.56l66.8 192h-394.16z"/></svg></span>Jam Survivor</th><td>Drove the furthest on jammed roads</td><td class="sample"><strong>2.9</strong> km crawled through jams <span class="who">Oat Runner</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 160c-212.077 0-384 171.923-384 384s171.923 384 384 384c212.077 0 384-171.923 384-384v0c-0.25-211.976-172.023-383.75-383.976-384l-0.024-0zM694.64 406.64l-160 160c-5.794 5.794-13.799 9.378-22.64 9.378-17.683 0-32.018-14.335-32.018-32.018 0-8.841 3.584-16.846 9.378-22.64l160-160c5.794-5.794 13.799-9.378 22.64-9.378 17.683 0 32.018 14.335 32.018 32.018 0 8.841-3.584 16.846-9.378 22.64l0-0zM384 64c0-17.673 14.327-32 32-32v0h192c17.673 0 32 14.327 32 32s-14.327 32-32 32v0h-192c-17.673 0-32-14.327-32-32v0z"/></svg></span>Speed Demon</th><td>The quickest delivery of the day</td><td class="sample"><strong>1 h 28 min</strong> from order to doorstep <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M800 302.56v-142.56c0-35.346-28.654-64-64-64v0h-448c-35.346 0-64 28.654-64 64v0 144c0.047 20.856 10.019 39.373 25.441 51.084l0.159 0.116 209.080 156.8-209.080 156.8c-15.581 11.827-25.553 30.344-25.6 51.192l-0 0.008v144c0 35.346 28.654 64 64 64v0h448c35.346 0 64-28.654 64-64v0-142.56c-0.056-20.763-9.941-39.205-25.246-50.927l-0.154-0.113-209.52-158.4 209.52-158.36c15.464-11.847 25.351-30.304 25.4-51.072l0-0.008zM712.92 704h-403.6l202.68-152zM736 302.56l-224 169.44-224-168v-144h448z"/></svg></span>Fashionably Late</th><td>The latest delivery that still arrived</td><td class="sample"><strong>4 h 25 min</strong> late, and still delivered <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M864 576h-64v-256h64c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-64v-96c0-35.346-28.654-64-64-64v0h-448c-35.346 0-64 28.654-64 64v0 96h-64c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h64v256h-64c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h64v224c0 35.346 28.654 64 64 64v0h448c35.346 0 64-28.654 64-64v0-224h64c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM512 464c-61.856 0-112-50.144-112-112s50.144-112 112-112c61.856 0 112 50.144 112 112v0c0 61.856-50.144 112-112 112v0zM512 560c61.856 0 112 50.144 112 112s-50.144 112-112 112c-61.856 0-112-50.144-112-112v0c0-61.856 50.144-112 112-112v0z"/></svg></span>Red Light Magnet</th><td>Stopped at the most red lights</td><td class="sample"><strong>5</strong> red lights waited out <span class="who">Pasta Pilot</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M736 358.28v-22.28c0-100.32-151.32-176-352-176s-352 75.68-352 176v160c0 83.56 105 149.96 256 169.84v22.16c0 100.32 151.32 176 352 176s352-75.68 352-176v-160c0-82.8-101.68-149.28-256-169.72zM224 587.48c-78.36-21.88-128-57.92-128-91.48v-56.28c32.64 23.12 76.36 41.76 128 54.28zM544 494c51.64-12.52 95.36-31.16 128-54.28v56.28c0 33.56-49.64 69.6-128 91.48zM480 779.48c-78.36-21.88-128-57.92-128-91.48v-16.68c10.52 0.4 21.16 0.68 32 0.68 15.52 0 30.68-0.52 45.56-1.4 13.044 4.934 29.888 10.094 47.091 14.341l3.349 0.699zM480 601c-28.635 4.455-61.664 7-95.286 7-0.251 0-0.502-0-0.752-0l0.039 0c-0.212 0-0.463 0-0.714 0-33.623 0-66.651-2.545-98.903-7.453l3.616 0.453v-95.16c28.521 3.922 61.48 6.161 94.962 6.161 0.365 0 0.73-0 1.094-0.001l-0.057 0c0.308 0 0.673 0.001 1.038 0.001 33.482 0 66.441-2.239 98.735-6.575l-3.773 0.414zM736 793c-28.849 4.455-62.127 7-96 7s-67.151-2.545-99.654-7.454l3.654 0.454v-95.4c28.732 4.074 61.918 6.4 95.648 6.4 0.124 0 0.248-0 0.371-0l-0.019 0c0.308 0 0.673 0.001 1.038 0.001 33.482 0 66.441-2.239 98.735-6.575l-3.773 0.414zM928 688c0 33.56-49.64 69.6-128 91.48v-93.48c51.64-12.52 95.36-31.16 128-54.28z"/></svg></span>Jackpot</th><td>The biggest single delivery</td><td class="sample"><strong>134</strong> points in one drop <span class="who">Oat Runner</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M928 480h-33.36c-16.329-186.717-163.923-334.311-349.188-350.537l-1.452-0.103v-33.36c0-17.673-14.327-32-32-32s-32 14.327-32 32v0 33.36c-186.717 16.329-334.311 163.923-350.537 349.188l-0.103 1.452h-33.36c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h33.36c16.329 186.717 163.923 334.311 349.188 350.537l1.452 0.103v33.36c0 17.673 14.327 32 32 32s32-14.327 32-32v0-33.36c186.717-16.329 334.311-163.923 350.537-349.188l0.103-1.452h33.36c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM800 544h30.4c-15.895 151.349-135.051 270.505-285.009 286.281l-1.391 0.119v-30.4c0-17.673-14.327-32-32-32s-32 14.327-32 32v0 30.4c-151.349-15.895-270.505-135.051-286.281-285.009l-0.119-1.391h30.4c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-30.4c15.895-151.349 135.051-270.505 285.009-286.281l1.391-0.119v30.4c0 17.673 14.327 32 32 32s32-14.327 32-32v0-30.4c151.349 15.895 270.505 135.051 286.281 285.009l0.119 1.391h-30.4c-17.673 0-32 14.327-32 32s14.327 32 32 32v0zM672 512c0 88.366-71.634 160-160 160s-160-71.634-160-160c0-88.366 71.634-160 160-160v0c88.366 0 160 71.634 160 160v0z"/></svg></span>Sniped!</th><td>Lost the most contested claims to a rival</td><td class="sample"><strong>2</strong> order fights lost <span class="who">Pasta Pilot</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M880 676.36l-368 214.6-368-214.6c-4.157-2.115-9.065-3.354-14.263-3.354-17.673 0-32 14.327-32 32 0 11.063 5.614 20.815 14.148 26.562l0.114 0.072 384 224c4.618 2.738 10.18 4.357 16.12 4.357s11.502-1.618 16.269-4.438l-0.149 0.081 384-224c9.768-5.603 16.242-15.971 16.242-27.851 0-17.673-14.327-32-32-32-6.088 0-11.779 1.7-16.624 4.651l0.141-0.080z M880 484.36l-368 214.6-368-214.6c-4.157-2.115-9.065-3.354-14.263-3.354-17.673 0-32 14.327-32 32 0 11.063 5.614 20.815 14.148 26.562l0.114 0.072 384 224c4.618 2.738 10.18 4.357 16.12 4.357s11.502-1.618 16.269-4.438l-0.149 0.081 384-224c9.768-5.603 16.242-15.971 16.242-27.851 0-17.673-14.327-32-32-32-6.088 0-11.779 1.7-16.624 4.651l0.141-0.080z M112 347.64l384 224c4.618 2.738 10.18 4.357 16.12 4.357s11.502-1.618 16.269-4.438l-0.149 0.081 384-224c9.562-5.652 15.875-15.909 15.875-27.64s-6.313-21.988-15.726-27.559l-0.148-0.081-384-224c-4.618-2.738-10.18-4.357-16.12-4.357s-11.502 1.618-16.269 4.438l0.149-0.081-384 224c-9.562 5.652-15.875 15.909-15.875 27.64s6.313 21.988 15.726 27.559l0.148 0.081z"/></svg></span>Tetris Master</th><td>Most trips with all five order slots filled</td><td class="sample"><span class="none">Nobody qualified</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M960 224v256c0 0.007 0 0.016 0 0.025 0 17.673-14.327 32-32 32-8.843 0-16.848-3.587-22.64-9.385l-105.36-105.4-233.36 233.4c-5.792 5.798-13.797 9.385-22.64 9.385s-16.848-3.587-22.64-9.385l-137.36-137.4-265.36 265.4c-5.794 5.794-13.799 9.378-22.64 9.378-17.683 0-32.018-14.335-32.018-32.018 0-8.841 3.584-16.846 9.378-22.64l-0 0 288-288c5.792-5.798 13.797-9.385 22.64-9.385s16.848 3.587 22.64 9.385l137.36 137.4 210.76-210.76-105.4-105.36c-5.798-5.792-9.385-13.797-9.385-22.64 0-17.673 14.327-32 32-32 0.009 0 0.018 0 0.027 0l255.999-0c17.673 0 32 14.327 32 32v0z"/></svg></span>Comeback Kid</th><td>Biggest climb from their lowest place</td><td class="sample"><strong>3</strong> places climbed <span class="who">Oat Runner</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M915.68 198.76c-5.368-4.214-12.221-6.758-19.668-6.758-2.76 0-5.439 0.349-7.994 1.006l0.222-0.048-244.52 61.12-245.4-122.72c-4.162-2.121-9.077-3.364-14.283-3.364-2.769 0-5.456 0.352-8.019 1.013l0.222-0.049-256 64c-14.031 3.594-24.238 16.125-24.24 31.040l-0 0v576c0.003 17.671 14.329 31.995 32 31.995 2.756 0 5.43-0.348 7.982-1.003l-0.222 0.048 244.52-61.12 245.4 122.72c4.177 2.105 9.102 3.344 14.315 3.36l0.005 0c2.757-0.002 5.431-0.352 7.982-1.008l-0.222 0.048 256-64c14.031-3.594 24.238-16.125 24.24-31.040l0-0v-576c0-0.002 0-0.005 0-0.007 0-10.221-4.792-19.322-12.251-25.181l-0.069-0.052zM384 704c-2.757 0.002-5.431 0.352-7.982 1.008l0.222-0.048-216.24 54.040v-510l220.28-55.080 3.72 1.84zM864 775l-220.28 55.080-3.72-1.84v-508.24c0.042 0 0.091 0 0.141 0 2.705 0 5.331-0.336 7.84-0.967l-0.221 0.047 216.24-54.080z"/></svg></span>Long Hauler</th><td>Delivered to the customer farthest from their shop</td><td class="sample"><strong>3.8</strong> km to one customer <span class="who">Milk Rocket</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M855.4 501.84l-448 480c-5.854 6.235-14.148 10.12-23.351 10.12-17.673 0-32-14.327-32-32 0-2.165 0.215-4.28 0.625-6.324l-0.034 0.204 58.64-293.32-230.52-86.56c-12.247-4.675-20.789-16.326-20.789-29.972 0-8.542 3.347-16.303 8.802-22.042l-0.013 0.014 448-480c5.854-6.235 14.148-10.12 23.351-10.12 17.673 0 32 14.327 32 32 0 2.165-0.215 4.28-0.625 6.324l0.034-0.204-58.8 293.64 230.52 86.44c12.174 4.712 20.65 16.326 20.65 29.919 0 8.471-3.292 16.173-8.666 21.898l0.016-0.017z"/></svg></span>Rush Hour Hero</th><td>Most bonus points earned in rush hour</td><td class="sample"><strong>+134</strong> rush-hour bonus points <span class="who">Kale Storm</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M64 400v-112c0-35.346 28.654-64 64-64v0h336c8.837 0 16 7.163 16 16v0 304h-224c0-70.692-57.308-128-128-128v0h-48c-8.837 0-16-7.163-16-16v0zM896 416h48c8.837 0 16-7.163 16-16v0-112c0-35.346-28.654-64-64-64v0h-336c-8.837 0-16 7.163-16 16v0 304h224c0-70.692 57.308-128 128-128v0zM928 480h-32c-35.346 0-64 28.654-64 64v0 32c0 17.673-14.327 32-32 32v0h-576c-17.673 0-32-14.327-32-32v0-32c0-35.346-28.654-64-64-64v0h-32c-35.346 0-64 28.654-64 64v0 128c0 35.346 28.654 64 64 64v0h32v62.92c-0.002 0.144-0.004 0.313-0.004 0.483 0 17.072 13.075 31.091 29.758 32.588l0.126 0.009c0.634 0.045 1.374 0.070 2.12 0.070 17.673 0 32-14.327 32-32 0-0.025-0-0.049-0-0.074l0 0.004v-64h640v62.92c-0.002 0.131-0.003 0.285-0.003 0.44 0 17.064 13.078 31.073 29.758 32.551l0.125 0.009c0.634 0.045 1.374 0.070 2.12 0.070 17.673 0 32-14.327 32-32 0-0.025-0-0.049-0-0.074l0 0.004v-63.92h32c35.346 0 64-28.654 64-64v0-128c0-35.346-28.654-64-64-64v0z"/></svg></span>Couch Potato</th><td>Trucks napped at the shop the longest</td><td class="sample"><strong>80%</strong> of truck time parked with nothing to do <span class="who">Milk Rocket &amp; Pasta Pilot &amp; Turbo Turnip</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M800 512c0 0.045 0 0.098 0 0.151 0 68.188-23.8 130.818-63.546 180.035l0.426-0.545-404.52-404.52c48.796-39.316 111.54-63.108 179.84-63.108 158.948 0 287.8 128.852 287.8 287.8 0 0.066-0 0.132-0 0.199l0-0.010zM224 512c-0 0.056-0 0.122-0 0.188 0 158.948 128.852 287.8 287.8 287.8 68.3 0 131.044-23.792 180.394-63.54l-0.554 0.432-404.52-404.52c-39.32 48.672-63.12 111.301-63.12 179.489 0 0.053 0 0.106 0 0.159l-0-0.008zM944 512c0 238.587-193.413 432-432 432s-432-193.413-432-432c0-238.587 193.413-432 432-432v0c238.477 0.273 431.727 193.523 432 431.974l0 0.026zM864 512c0-194.404-157.596-352-352-352s-352 157.596-352 352c0 194.404 157.596 352 352 352v0c194.313-0.228 351.772-157.687 352-351.978l0-0.022z"/></svg></span>Stubborn</th><td>Sent the most actions the server said no to</td><td class="sample"><strong>2</strong> actions refused <span class="who">Pasta Pilot</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M909.28 195c-3.885-1.808-8.435-2.863-13.23-2.863-8.058 0-15.421 2.979-21.047 7.895l0.038-0.032c-112 96.88-206.88 49.92-316.84-4.52-113.92-56.44-243.080-120.32-387.16 4.52v0c-6.735 5.861-10.984 14.429-11.040 23.99l-0 0.010v672c0 17.673 14.327 32 32 32s32-14.327 32-32v0-176.92c107.16-84.64 199.48-39 305.8 13.64 65.6 32.44 136.24 67.4 212 67.4 55.72 0 114.16-19 175.28-72 6.735-5.861 10.984-14.429 11.040-23.99l0-0.010v-480.12c-0.070-12.838-7.689-23.88-18.641-28.918l-0.199-0.082zM224 641.76v-202.24c67.4-45.12 130.56-46.36 192-29.36v206.96c-60.52-15.24-124.52-14.28-192 24.64zM416 203.48c37 11.32 74.44 29.8 113.8 49.28 45.040 22.28 92.44 45.72 142.2 58.24v206.96c61.4 17 124.56 15.76 192-29.4v200.44c-67.48 53.28-129.080 54.88-192 35.64v-206.68c-86.48-24-169.52-84-256-107.8z"/></svg></span>Pole Position</th><td>Led the standings the longest</td><td class="sample"><strong>55%</strong> of the day in the lead <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M960 384c0 17.673-14.327 32-32 32v0h-64v64c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-64h-64c-17.673 0-32-14.327-32-32s14.327-32 32-32v0h64v-64c0-17.673 14.327-32 32-32s32 14.327 32 32v0 64h64c17.673 0 32 14.327 32 32v0zM576 224h32v32c0 17.673 14.327 32 32 32s32-14.327 32-32v0-32h32c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-32v-32c0-17.673-14.327-32-32-32s-32 14.327-32 32v0 32h-32c-17.673 0-32 14.327-32 32s14.327 32 32 32v0zM836.56 601.32c-20.528 4.248-44.12 6.681-68.281 6.681-194.559 0-352.28-157.721-352.28-352.28 0-24.16 2.432-47.752 7.065-70.545l-0.384 2.264c0.385-1.862 0.605-4.001 0.605-6.192 0-17.673-14.327-32-32-32-3.95 0-7.733 0.716-11.226 2.024l0.221-0.073c-148.377 55.382-252.125 195.898-252.125 360.645 0 212.077 171.923 384 384 384 164.747 0 305.263-103.748 359.776-249.475l0.869-2.651c1.236-3.272 1.952-7.055 1.952-11.005 0-17.673-14.327-32-32-32-2.191 0-4.33 0.22-6.397 0.64l0.205-0.035z"/></svg></span>Night Owl</th><td>Most deliveries after dark</td><td class="sample"><strong>11</strong> deliveries after 20:00 <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M992 640c0 17.673-14.327 32-32 32v0h-896c-17.673 0-32-14.327-32-32s14.327-32 32-32v0h161.8c-1.127-9.582-1.78-20.703-1.8-31.973l-0-0.027c0-159.058 128.942-288 288-288s288 128.942 288 288v0c-0.020 11.297-0.673 22.418-1.926 33.357l0.126-1.357h161.8c17.673 0 32 14.327 32 32v0zM832 768h-640c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h640c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM323.36 238.32c5.374 10.579 16.175 17.7 28.64 17.7 17.684 0 32.020-14.336 32.020-32.020 0-5.22-1.249-10.148-3.464-14.502l0.084 0.182-32-64c-5.374-10.579-16.175-17.7-28.64-17.7-17.684 0-32.020 14.336-32.020 32.020 0 5.22 1.249 10.148 3.464 14.502l-0.084-0.182zM81.68 412.64l64 32c4.172 2.133 9.1 3.383 14.32 3.383 17.675 0 32.003-14.328 32.003-32.003 0-12.454-7.114-23.247-17.501-28.536l-0.182-0.084-64-32c-4.172-2.133-9.1-3.383-14.32-3.383-17.675 0-32.003 14.328-32.003 32.003 0 12.454 7.114 23.247 17.501 28.536l0.182 0.084zM864 448c0.002 0 0.004 0 0.006 0 5.202 0 10.114-1.241 14.456-3.444l-0.182 0.084 64-32c10.568-5.373 17.683-16.166 17.683-28.62 0-17.675-14.328-32.003-32.003-32.003-5.22 0-10.148 1.25-14.502 3.467l0.182-0.084-64 32c-10.548 5.379-17.646 16.16-17.646 28.6 0 17.673 14.327 32 32 32 0.002 0 0.004-0 0.006-0l-0 0zM657.68 252.64c4.174 2.136 9.105 3.388 14.329 3.388 12.464 0 23.263-7.126 28.547-17.525l0.084-0.182 32-64c2.131-4.172 3.38-9.1 3.38-14.32 0-17.684-14.336-32.020-32.020-32.020-12.465 0-23.266 7.122-28.556 17.519l-0.084 0.182-32 64c-2.136 4.174-3.388 9.105-3.388 14.329 0 12.464 7.126 23.263 17.525 28.547l0.182 0.084z"/></svg></span>Early Bird</th><td>Made the day's first delivery</td><td class="sample"><strong>08:33</strong> first drop of the day <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M952 330.92c-5.879-6.69-14.446-10.897-23.996-10.92l-0.004-0h-177.48l-214.52-245.080c-5.892-6.658-14.458-10.834-24-10.834s-18.108 4.176-23.971 10.8l-0.029 0.034-214.52 245.080h-177.48c-0.001-0-0.001-0-0.002-0-17.673 0-32 14.327-32 32 0 1.495 0.103 2.966 0.301 4.407l-0.019-0.167 60.28 452.24c4.432 31.46 31.123 55.413 63.429 55.52l0.011 0h648c32.317-0.107 59.008-24.061 63.401-55.18l0.039-0.34 60.28-452.24c0.173-1.25 0.272-2.695 0.272-4.163 0-8.127-3.030-15.547-8.022-21.191l0.030 0.034zM326.4 736c-0.484 0.029-1.050 0.045-1.62 0.045s-1.136-0.016-1.698-0.048l0.078 0.004c-0.048 0-0.104 0-0.16 0-16.546 0-30.159-12.558-31.828-28.663l-0.012-0.137-22.4-224c-0.102-0.96-0.16-2.073-0.16-3.2 0-17.673 14.327-32 32-32 16.546 0 30.16 12.558 31.828 28.663l0.012 0.137 22.4 224c0.114 1.014 0.179 2.189 0.179 3.379 0 16.482-12.461 30.054-28.476 31.808l-0.143 0.013zM544 704c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-224c0-17.673 14.327-32 32-32s32 14.327 32 32v0zM358.52 320l153.48-175.4 153.48 175.4zM755.040 483.2l-22.4 224c-1.679 16.229-15.271 28.779-31.798 28.8l-0.002 0c-0.484 0.029-1.050 0.045-1.62 0.045s-1.136-0.016-1.698-0.048l0.078 0.004c-16.242-1.68-28.8-15.293-28.8-31.84 0-1.127 0.058-2.241 0.172-3.338l-0.012 0.137 22.4-224c1.68-16.242 15.294-28.8 31.84-28.8 17.673 0 32 14.327 32 32 0 1.127-0.058 2.24-0.172 3.337l0.012-0.137z"/></svg></span>Pack Mule</th><td>Most grocery items delivered</td><td class="sample"><strong>253</strong> grocery items hauled <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="cheeky"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96c-211.976 0.25-383.75 172.023-384 383.976l-0 0.024v384c-0 0.002-0 0.004-0 0.007 0 17.673 14.327 32 32 32 7.723 0 14.806-2.736 20.335-7.291l-0.055 0.044 97.040-79.4 97.080 79.4c5.47 4.501 12.546 7.23 20.26 7.23s14.79-2.729 20.315-7.275l-0.055 0.044 97.080-79.4 97.080 79.4c5.47 4.501 12.546 7.23 20.26 7.23s14.79-2.729 20.315-7.275l-0.055 0.044 97.080-79.4 97.040 79.4c5.474 4.511 12.557 7.247 20.28 7.247 17.673 0 32-14.327 32-32 0-0.002-0-0.005-0-0.007l0 0v-384c-0.25-211.976-172.023-383.75-383.976-384l-0.024-0zM400 512c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0zM624 512c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0z"/></svg></span>Ghosted</th><td>Most claimed orders that never arrived</td><td class="sample"><strong>4</strong> customers never got their order <span class="who">Bananas Express &amp; Kale Storm</span></td><td><span class="tone" data-tone="cheeky">Tease</span></td></tr>
+<tr><th scope="row"><span class="aw-icon" data-tone="glory"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M894.72 264.6l-352-192.6c-8.858-4.986-19.446-7.923-30.72-7.923s-21.861 2.937-31.040 8.088l0.32-0.165-352 192.68c-19.939 11.067-33.224 31.976-33.28 55.992l-0 0.008v382.56c0.056 24.024 13.341 44.933 32.953 55.833l0.327 0.167 352 192.68c8.858 4.986 19.446 7.923 30.72 7.923s21.861-2.937 31.040-8.088l-0.32 0.165 352-192.68c19.939-11.067 33.224-31.976 33.28-55.992l0-0.008v-382.52c-0.010-24.071-13.306-45.034-32.953-55.953l-0.327-0.167zM512 128l321.4 176-119.12 65.16-321.4-176zM512 480l-321.4-176 135.64-74.28 321.4 176zM864 703.4v0l-320 175.16v-343.24l128-70.040v142.72c0 17.673 14.327 32 32 32s32-14.327 32-32v0-177.76l128-70.040v343.040z"/></svg></span>Delivery Machine</th><td>Most orders delivered</td><td class="sample"><strong>46</strong> deliveries <span class="who">Bananas Express</span></td><td><span class="tone" data-tone="glory">Praise</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="how-title">
+    <div class="head"><div><h2 id="how-title">How the numbers are made</h2></div></div>
+    <div class="facts">
+      <div class="fact"><h3>Same numbers everywhere</h3><p>Stats are counted from the per-tick data the public game page already receives. A live game, a game in a background worker and a stored replay give identical results, so older games get a podium too.</p></div>
+      <div class="fact"><h3>Stops and jams</h3><p>The engine now logs each wait at a red light, zebra crossing or stop sign, and the metres driven on jammed roads. The log is display-only and left out of the replay hash, so scores and replays don’t change.</p></div>
+      <div class="fact"><h3>Happy and unhappy</h3><p>A happy customer got their groceries at 80 % happiness or more. An unhappy one got them below 50 %, or never. Times are on the game clock, 06:00 to 23:00.</p></div>
+      <div class="fact"><h3>Tested</h3><p>148 JS tests pass, plus 7 new Python tests for the counting, the awards and the API. Checked in a browser on desktop and phone, live and in replay.</p></div>
+    </div>
+  </section>
+</main>
+
+<script>(() => {
+  'use strict';
+
+  const INK = '#171412';
+  const SHAPES = {
+    bean: { d: 'M-11.5 -6C-11.5 -15 -6.8 -19.5 0 -19.5S11.5 -15 11.5 -6C11.5 -2 9.4 0 5.2 0H-5.2C-9.4 0 -11.5 -2 -11.5 -6Z', eyes: -9, top: -19 },
+    round: { d: 'M0 -21A10.5 10.5 0 1 1 0 0A10.5 10.5 0 1 1 0 -21Z', eyes: -10, top: -20.5 },
+    box: { d: 'M-11 -13Q-11 -18.5 -5.5 -18.5H5.5Q11 -18.5 11 -13V-5Q11 0 5.5 0H-5.5Q-11 0 -11 -5Z', eyes: -9, top: -18 },
+    tall: { d: 'M-8.5 -15.5C-8.5 -20.5 -4.7 -24.5 0 -24.5S8.5 -20.5 8.5 -15.5V-4.5C8.5 -1.5 6.5 0 3.5 0H-3.5C-6.5 0 -8.5 -1.5 -8.5 -4.5Z', eyes: -12.5, top: -24 },
+    dome: { d: 'M-12.5 -4.5C-12.5 -12.5 -7 -16.5 0 -16.5S12.5 -12.5 12.5 -4.5C12.5 -1.5 10.8 0 7.8 0H-7.8C-10.8 0 -12.5 -1.5 -12.5 -4.5Z', eyes: -8, top: -16 }
+  };
+  const COLORS = {
+    red: '#c8102e', ink: '#2b2522', leaf: '#3f8f4f', milk: '#3b77b8', carrot: '#e8772e', plum: '#7a4a93', lemon: '#f1c232', oat: '#e9dfcc'
+  };
+
+  const GOODS = {
+    milk: '#5d8fbf', butter: '#e5c14b', yogurt: '#d08aa2', cheese: '#eea43c', cream: '#9fb9d2', eggs: '#c39a73',
+    bread: '#a4642f', pasta: '#dfb95c', rice: '#c9bea4', cereal: '#d7792c', flour: '#b3a994', oats: '#98804f',
+    apples: '#74a13a', bananas: '#e9cd4c', tomatoes: '#d4473a', onions: '#ae7a4f', carrots: '#e37c33',
+    peppers: '#3c8a47', lettuce: '#8aba5a', juice: '#ee982f', sugar: '#d4ccbf'
+  };
+
+  function light(hex) {
+    const n = parseInt(hex.slice(1), 16);
+    return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255 > 0.62;
+  }
+
+  const COSTUMES = {
+    bean: t => `<g transform="translate(-6.5 2.5) rotate(-34 0 ${t})"><path d="M-7 ${t + 0.6}L1 ${t - 15}Q2.6 ${t - 18.4} 4.6 ${t - 14}L8 ${t + 0.6}Z" fill="#1d1128"/><path d="M-6.2 ${t - 2.6}Q0.5 ${t - 1.2} 7.3 ${t - 2.8}L8 ${t + 0.6}H-7Z" fill="#7b3fe4"/><rect x="-0.8" y="${t - 3.2}" width="3.8" height="4" rx=".7" fill="none" stroke="#ff8a2b" stroke-width="1"/><path d="M3.4 ${t - 9.4}l.6 1.4 1.5.1-1.2.9.4 1.5-1.3-.8-1.3.8.4-1.5-1.2-.9 1.5-.1Z" fill="#ffd166"/><ellipse cx="0.5" cy="${t + 0.8}" rx="13.5" ry="2.9" fill="#1d1128"/><ellipse cx="0.5" cy="${t + 0.2}" rx="12" ry="1.6" fill="#33204d" opacity=".6"/></g>`,
+    round: t => `<path d="M-3.5 -18Q-7.8 -10.5 -3.5 -2M3.5 -18Q7.8 -10.5 3.5 -2" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="1.2" stroke-linecap="round"/><path d="M-8 -17Q-11.5 -10 -8 -3M8 -17Q11.5 -10 8 -3" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="1.1" stroke-linecap="round"/><path d="M-6 -5.4L-4 -2.6L-2 -5.4L0 -2.6L2 -5.4L4 -2.6L6 -5.4V-4.4L4 -1.6L2 -4.4L0 -1.6L-2 -4.4L-4 -1.6L-6 -4.4Z" fill="#1d1128"/><g transform="translate(7 ${t + 3.5}) rotate(24)"><path d="M-1.4 1V-5Q-1.4 -6.8 0.2 -6.8T1.8 -5V1Z" fill="#3f7d32"/><path d="M1.8 -3Q6 -8 9.6 -3.6Q5.5 -1.4 1.8 -3Z" fill="#5aa84a"/><path d="M3 -3.4Q5.8 -5 8.2 -3.8" fill="none" stroke="#3f7d32" stroke-width=".6"/></g>`,
+    box: t => `<path d="M-10.8 ${t + 0.6}Q-10.8 ${t - 1.8} -6 ${t - 1.8}H6Q10.8 ${t - 1.8} 10.8 ${t + 0.6}V${t + 4.6}L7 ${t + 2.8}L3.5 ${t + 5}L0 ${t + 2.8}L-3.5 ${t + 5}L-7 ${t + 2.8}L-10.8 ${t + 4.6}Z" fill="#1d1128"/><path d="M-4.6 -3.6H4.6" stroke="#1d1128" stroke-width="1.1" stroke-linecap="round"/><path d="M-3.4 -4.8V-2.4M-1.1 -4.8V-2.4M1.1 -4.8V-2.4M3.4 -4.8V-2.4" stroke="#1d1128" stroke-width=".9" stroke-linecap="round"/><path d="M6.4 ${t + 7}L9.2 ${t + 9}M9.2 ${t + 7}L6.4 ${t + 9}" stroke="#1d1128" stroke-width="1" stroke-linecap="round"/><rect x="-14.6" y="-11.4" width="4" height="3" rx=".9" fill="#aab2b7"/><rect x="-12" y="-12.6" width="1.3" height="5.4" rx=".6" fill="#8c959a"/><rect x="10.6" y="-11.4" width="4" height="3" rx=".9" fill="#aab2b7"/><rect x="10.7" y="-12.6" width="1.3" height="5.4" rx=".6" fill="#8c959a"/>`,
+    tall: t => `<path d="M-9 ${t + 7}L-8.6 ${t - 6.2}L-1.4 ${t + 1.2}Z" fill="#1d1128"/><path d="M9 ${t + 7}L8.6 ${t - 6.2}L1.4 ${t + 1.2}Z" fill="#1d1128"/><path d="M-7.6 ${t + 3.4}L-7.5 ${t - 2.6}L-3.6 ${t + 1.4}Z" fill="#ff9ec4"/><path d="M7.6 ${t + 3.4}L7.5 ${t - 2.6}L3.6 ${t + 1.4}Z" fill="#ff9ec4"/><path d="M-1.8 -6.8H1.8L0 -4.8Z" fill="#ff9ec4"/><path d="M0 -4.8V-3.4M-2.6 -3Q-1 -2.2 0 -3.4Q1 -2.2 2.6 -3" fill="none" stroke="#1d1128" stroke-width=".8" stroke-linecap="round"/><path d="M-9 -8.4L-15.5 -10.4M-9 -6L-15.5 -6M-9 -3.6L-15 -2M9 -8.4L15.5 -10.4M9 -6L15.5 -6M9 -3.6L15 -2" stroke="#1d1128" stroke-width=".9" stroke-linecap="round"/>`,
+    dome: () => `<clipPath id="gb-wrap"><path d="${SHAPES.dome.d}"/></clipPath><g clip-path="url(#gb-wrap)" fill="none" stroke="#f3ead8" stroke-width="2.3" stroke-linecap="round" opacity=".94"><path d="M-14 -14L14 -11M-14 -1.5L14 -3.4M-14 2L14 0M-14 -17.5L8 -16"/><path d="M-14 -9.6L-8 -10.6M8 -10.6L14 -9.6" stroke="#e6d9bf" stroke-width="1.6"/></g><path d="M7 -1L12.5 3.2Q14 4.4 12.2 5.2L9 4.4" fill="none" stroke="#f3ead8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`
+  };
+  const dress = (shape, top, carried) => {
+    if (!spooky() || !COSTUMES[shape]) return carried;
+    return shape === 'bean' || shape === 'tall' ? carried + COSTUMES[shape](top) : COSTUMES[shape](top) + carried;
+  };
+  const spooky = () => document.documentElement.dataset.theme === 'halloween';
+
+  function eyes({ mood = 'calm', kind = 'dots', gaze = 0, gazeY = 0, lid = 0, wide = 1, smear = 0, color = COLORS.red, y }) {
+    const fill = light(color) ? INK : '#fff';
+    const r2 = n => +n.toFixed(2);
+    const x = gaze * 2.4;
+    const cy = y + gazeY * 1.6;
+    const gap = 4.2 * (1 - Math.min(.35, Math.abs(gaze) * .12));
+    const arc = (cx, w = 1) => `M${r2(cx - 2.3 * w)} ${r2(cy + 1.2)}q${r2(2.3 * w)} -3.6 ${r2(4.6 * w)} 0`;
+    const stroke = d => `<path d="${d}" fill="none" stroke="${fill}" stroke-width="1.9" stroke-linecap="round"/>`;
+    const open = mood === 'blink' ? 1 : lid;
+    const capsule = (cx, near) => {
+      const depth = 1 + near * Math.min(1, Math.abs(gaze)) * .1;
+      const sm = Math.min(.7, Math.abs(smear));
+      const w = 4.7 * depth * (1 + (wide - 1) * .6) * (1 + sm), h0 = 7 * depth * wide * (1 - sm * .3);
+      const h = Math.max(.9, h0 * (1 - open));
+      const yc = cy + (h0 - h) * .38;
+      return `<rect x="${r2(cx - w / 2)}" y="${r2(yc - h / 2)}" width="${r2(w)}" height="${r2(h)}" rx="${r2(Math.min(w, h) / 2)}" fill="${fill}"/>`;
+    };
+    if (mood === 'happy' || kind === 'happy') return stroke(arc(x - gap) + arc(x + gap));
+    if (mood === 'sleepy' || kind === 'sleepy') return `<path d="M${r2(x - gap - 2.4)} ${r2(cy)}h4.8M${r2(x + gap - 2.4)} ${r2(cy)}h4.8" stroke="${fill}" stroke-width="2" stroke-linecap="round"/>`;
+    if (kind === 'wink') return capsule(x - gap, gaze < 0 ? 1 : -1) + stroke(arc(x + gap));
+    if (kind === 'visor') { const h = Math.max(1, 5.2 * (1 - open * .8)); return `<rect x="${r2(x - 8)}" y="${r2(cy - h / 2)}" width="16" height="${r2(h)}" rx="${r2(h / 2)}" fill="${fill}"/>`; }
+    return capsule(x - gap, gaze < 0 ? 1 : -1) + capsule(x + gap, gaze > 0 ? 1 : -1);
+  }
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const RAYS = 72;
+  const PROFILES = {};
+  function profile(shape) {
+    if (shape in PROFILES) return PROFILES[shape];
+    const s = SHAPES[shape];
+    PROFILES[shape] = null;
+    if (!s || typeof document === 'undefined' || !document.createElementNS || !document.body) return null;
+    try {
+      const svg = document.createElementNS(NS, 'svg');
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', s.d); svg.append(path);
+      svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true');
+      document.body.append(svg);
+      const len = path.getTotalLength(), cy = s.top / 2, pts = [];
+      for (let i = 0; i < 480; i++) {
+        const q = path.getPointAtLength(len * i / 480);
+        pts.push([Math.atan2(q.y - cy, q.x), Math.hypot(q.x, q.y - cy)]);
+      }
+      svg.remove();
+      if (!len) return null;
+      pts.sort((a, b) => a[0] - b[0]);
+      const r = [];
+      for (let i = 0; i < RAYS; i++) {
+        const a = -Math.PI + i * 2 * Math.PI / RAYS;
+        let k = pts.findIndex(q => q[0] >= a);
+        if (k < 0) k = 0;
+        const hi = pts[k], lo = pts[(k - 1 + pts.length) % pts.length];
+        let span = hi[0] - lo[0]; if (span <= 0) span += 2 * Math.PI;
+        let off = a - lo[0]; if (off < 0) off += 2 * Math.PI;
+        r.push(lo[1] + (hi[1] - lo[1]) * Math.min(1, off / span));
+      }
+      PROFILES[shape] = r;
+    } catch { PROFILES[shape] = null; }
+    return PROFILES[shape];
+  }
+
+  function bodyPath(radii, cy, jelly = 0, phase = 0) {
+    const pts = radii.map((r, i) => {
+      const a = -Math.PI + i * 2 * Math.PI / RAYS;
+      const k = 1 + jelly * Math.cos(2 * a) + jelly * .35 * Math.sin(3 * a + phase);
+      return [r * k * Math.cos(a), cy + r * k * Math.sin(a)];
+    });
+    const n = pts.length, r2 = v => +v.toFixed(2);
+    let d = `M${r2(pts[0][0])} ${r2(pts[0][1])}`;
+    for (let i = 0; i < n; i++) {
+      const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      d += `C${r2(p1[0] + (p2[0] - p0[0]) / 6)} ${r2(p1[1] + (p2[1] - p0[1]) / 6)} ${r2(p2[0] - (p3[0] - p1[0]) / 6)} ${r2(p2[1] - (p3[1] - p1[1]) / 6)} ${r2(p2[0])} ${r2(p2[1])}`;
+    }
+    return d + 'Z';
+  }
+
+  function geometry(shape, morph, jelly = 0, phase = 0) {
+    const s = SHAPES[shape] || SHAPES.bean;
+    const from = morph && SHAPES[morph.from];
+    const p = from ? morph.p : 1;
+    const top = from ? from.top + (s.top - from.top) * p : s.top;
+    const eyesY = from ? from.eyes + (s.eyes - from.eyes) * p : s.eyes;
+    const a = profile(shape), b = from && profile(morph.from);
+    if (!a || (from && p < 1 && !b)) return { d: s.d, top, eyesY };
+    if (!jelly && !(from && p < 1)) return { d: s.d, top, eyesY };
+    const radii = from && p < 1 ? a.map((r, i) => b[i] + (r - b[i]) * p) : a;
+    return { d: bodyPath(radii, top / 2, jelly, phase), top, eyesY };
+  }
+
+  function basket(top, items = [], palette = {}) {
+    const goods = items.map((type, i) => {
+      const cx = (i - (items.length - 1) / 2) * 4.8;
+      return `<rect x="${cx - 2.4}" y="${top - 9.6}" width="4.8" height="5.4" rx="1.1" fill="${palette[type] || '#b3a994'}"/>`;
+    }).join('');
+    return `<g class="gb-basket">${goods}<path d="M-5.6 ${top - 5}C-5.6 ${top - 12.5} 5.6 ${top - 12.5} 5.6 ${top - 5}" fill="none" stroke="#cfc7c1" stroke-width="2.6"/><path d="M-5.6 ${top - 5}C-5.6 ${top - 12.5} 5.6 ${top - 12.5} 5.6 ${top - 5}" fill="none" stroke="#fff" stroke-width="1.4"/><path d="M-8.2 ${top - 5.6}H8.2L6.6 ${top + 0.9}H-6.6Z" fill="#fff" stroke="#cfc7c1" stroke-width=".7" stroke-linejoin="round"/><path d="M-2.7 ${top - 4.4}V${top - 0.2}M2.7 ${top - 4.4}V${top - 0.2}" stroke="#ddd6d0" stroke-width=".9"/></g>`;
+  }
+
+  const PATCH = '<g transform="translate(9 -1) rotate(-10)"><path d="M-5 -5.5H5V1L0 4.5 -5 1Z" fill="#edc568" stroke="#78500d" stroke-width=".65"/><text y=".6" text-anchor="middle" fill="#513509" font-family="Mulish, Arial, sans-serif" font-size="5.5" font-weight="900">26</text></g>';
+  function markup({ shape = 'bean', color = COLORS.red, mood = 'calm', kind = 'dots', gaze = 0, gazeY = 0, lid = 0, wide = 1, smear = 0, clip = '', back = false, patch = false, items = [], palette = {}, d, top, eyesY } = {}) {
+    const s = SHAPES[shape] || SHAPES.bean;
+    color = COLORS[color] || color;
+    d = d || s.d; top = top ?? s.top;
+    let face = back ? '' : eyes({ mood, kind, gaze, gazeY, lid, wide, smear, color, y: eyesY ?? s.eyes });
+    if (face && clip) face = `<clipPath id="${clip}"><path d="${d}"/></clipPath><g clip-path="url(#${clip})">${face}</g>`;
+    return `<path d="${d}" fill="${color}"/><ellipse cx="-6" cy="${f(top + 5)}" rx="1.8" ry="2.9" transform="rotate(34 -6 ${f(top + 5)})" fill="#fff" opacity=".28"/>${face}${dress(shape, top, basket(top, items, palette))}${patch ? PATCH : ''}`;
+  }
+
+  function avatar(opts = {}, size = 32) {
+    const pad = spooky() ? 6 : 0;
+    return `<svg class="gb-avatar" viewBox="${-14 - pad} -38 ${28 + pad * 2} 40" width="${Math.round(size * (28 + pad * 2) / 28)}" height="${Math.round(size * 40 / 28)}" aria-hidden="true">${markup(opts)}</svg>`;
+  }
+
+  const hash = n => { const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ease = p => 1 - Math.pow(1 - clamp(p), 4);
+  const smooth = p => { p = clamp(p); return p * p * (3 - 2 * p); };
+  const bell = p => (p <= 0 || p >= 1) ? 0 : Math.sin(p * Math.PI);
+  const f = n => +n.toFixed(2);
+
+  function blink(t, seed = 0) {
+    const L = 4.3, k = Math.floor(t / L);
+    let lid = 0;
+    for (const j of [k - 1, k]) {
+      if (j < 0) continue;
+      const at = j * L + .5 + hash(seed * 7.1 + j) * 3.3;
+      const times = hash(seed * 3.3 + j * 1.7) < .25 ? [at, at + .3] : [at];
+      for (const b of times) lid = Math.max(lid, bell((t - b) / .16));
+    }
+    return lid;
+  }
+
+  function glance(t, seed = 0, reach = 1) {
+    const L = 1.7, k = Math.floor(t / L);
+    const at = j => {
+      if (j < 0 || hash(seed * 4.1 + j * .7) < .3) return [0, 0];
+      return [(hash(seed * 5.3 + j * 2.1) * 2 - 1) * reach, (hash(seed * 9.7 + j * 3.9) * 2 - 1) * .55 * reach];
+    };
+    const a = at(k - 1), b = at(k), p = ease((t - k * L) / .26);
+    return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p];
+  }
+
+  const quint = p => 1 - Math.pow(1 - clamp(p), 5);
+  const hop = (p, height = 7) => {
+    if (p < .18) return { lift: 0, stretch: 1 - .14 * bell(p / .36) };
+    if (p < .78) { const q = (p - .18) / .6; return { lift: Math.sin(q * Math.PI) * height, stretch: 1 + .08 * bell(q) }; }
+    const q = (p - .78) / .22;
+    return { lift: 0, stretch: 1 - .1 * bell(q), jelly: Math.sin(q * Math.PI * 3) * .06 * (1 - q) };
+  };
+
+  const STATES = {
+    idle: (t, seed) => { const [gaze, gazeY] = glance(t, seed); return { gaze, gazeY, lid: blink(t, seed) }; },
+    cheer: (t, seed) => {
+      const L = 1.1, p = (t % L) / L, h = hop(p);
+      return { ...h, mood: h.lift > .5 ? 'happy' : 'calm', lid: blink(t, seed), gazeY: -.3, sparkle: h.lift / 7, burst: (t % L) - .18 * L };
+    },
+    hello: (t, seed) => {
+      const L = 3.2, q = (t % L) / .9;
+      const lean = q < 1 ? Math.sin(q * Math.PI * 4) * 9 * (1 - q) : 0;
+      const [gaze, gazeY] = glance(t, seed, .6);
+      return { lean, jelly: q < 1 ? Math.sin(q * Math.PI * 6) * .035 * (1 - q) : 0, gaze: q < 1 ? 0 : gaze, gazeY: q < 1 ? -.2 : gazeY, mood: q < 1 ? 'happy' : 'calm', lid: q < 1 ? 0 : blink(t, seed) };
+    },
+    think: (t, seed) => ({
+      gaze: .7 + Math.sin(t * 1.3) * .15, gazeY: -.85 + Math.sin(t * 2.1) * .1, lid: blink(t, seed) * .9 + .14, orbit: t
+    }),
+    load: t => {
+      const a = t * 3.1;
+      return { gaze: Math.cos(a) * .95, gazeY: Math.sin(a) * .7, comet: a, jelly: Math.sin(t * 6.2) * .012 };
+    },
+    scan: (t, seed) => {
+      const L = 1.15, k = Math.floor(t / L), p = (t - k * L) / L;
+      return { gaze: -1 + 2 * smooth(p / .85), gazeY: -.6 + (k % 3) * .55, lid: blink(t, seed) };
+    },
+    listen: (t, seed) => ({ gaze: Math.sin(t * .7) * .25, gazeY: -.15, wide: 1.08, lid: blink(t, seed), pulse: t, stretch: 1 + Math.sin(t * 2.4) * .02, jelly: Math.sin(t * 4.8) * .01 }),
+    notify: (t, seed) => {
+      const p = (t % 3) / 3, pop = p < .3 ? bell(p / .3) : 0;
+      const [gaze, gazeY] = glance(t, seed, .5);
+      return { gaze: p < .35 ? .6 : gaze, gazeY: p < .35 ? -.7 : gazeY, lid: blink(t, seed), badge: Math.min(1, t / .25), badgePop: pop, lift: pop * 2.5, jelly: p < .3 ? Math.sin(p / .3 * Math.PI * 3) * .04 * (1 - p / .3) : 0 };
+    },
+    sleep: t => ({ mood: 'sleepy', stretch: 1 + Math.sin(t * 1.7) * .035, jelly: Math.sin(t * 1.7) * .012, zzz: t }),
+    surprise: (t, seed) => {
+      const p = (t % 3.4) / 3.4, jolt = p < .12 ? bell(p / .12) : 0;
+      return { lift: jolt * 4, jelly: p < .3 ? Math.sin(p / .3 * Math.PI * 4) * .05 * (1 - p / .3) : 0, wide: 1 + .35 * smooth(p / .06) * (1 - smooth((p - .6) / .3)), lid: p > .7 ? blink(t, seed) : 0, gazeY: -.4, shock: p };
+    }
+  };
+
+  function fx(pose, g, color, weight = 1) {
+    let back = '', front = '';
+    const cy = g.top / 2, ink = INK;
+    const o = v => f(clamp(v) * weight);
+    if (pose.orbit !== undefined) {
+      const tilt = -16 + Math.sin(pose.orbit * .6) * 6, rx = 17.5, ry = 4.6;
+      const ring = sweep => `<path d="M${-rx} 0A${rx} ${ry} 0 0 ${sweep} ${rx} 0" fill="none" stroke="${ink}" stroke-width="1.1" stroke-linecap="round"/>`;
+      const wrap = (inner, a) => `<g transform="translate(0 ${f(cy)}) rotate(${f(tilt)})" opacity="${o(a)}">${inner}</g>`;
+      back += wrap(ring(1), .35);
+      front += wrap(ring(0), .8);
+      const a = pose.orbit * 2.6, bx = rx * Math.cos(a), by = ry * Math.sin(a);
+      const bead = `<circle cx="${f(bx)}" cy="${f(by)}" r="${f(1.7 + Math.sin(a) * .5)}" fill="${color}" stroke="#fff" stroke-width=".6"/>`;
+      if (Math.sin(a) < 0) back += wrap(bead, 1); else front += wrap(bead, 1);
+    }
+    if (pose.comet !== undefined) {
+      const R = 19, cx0 = 0;
+      let trail = '';
+      for (let i = 9; i >= 0; i--) {
+        const a = pose.comet - i * .1, k = 1 - i / 10;
+        trail += `<circle cx="${f(cx0 + Math.cos(a) * R)}" cy="${f(cy + Math.sin(a) * R * .78)}" r="${f(.5 + 1.8 * k)}" fill="${color}" opacity="${o(k * k)}"/>`;
+      }
+      front += trail;
+    }
+    if (pose.burst !== undefined && pose.burst > 0 && pose.burst < .7) {
+      const p = quint(pose.burst / .7);
+      for (let i = 0; i < 9; i++) {
+        const a = Math.PI * (1.05 + i / 8 * .9) + Math.sin(i * 7.3) * .08, d = 10 + p * 9 + (i % 3) * 1.5;
+        front += `<circle cx="${f(Math.cos(a) * d)}" cy="${f(Math.sin(a) * d * .9 + cy + 6)}" r="${f((1.3 - p) * (i % 2 ? 1 : .7))}" fill="${i % 3 ? color : '#f1c232'}" opacity="${o(1 - p)}"/>`;
+      }
+    }
+    if (pose.sparkle > .05) {
+      const s2 = clamp(pose.sparkle);
+      [[-13, g.top - 4, 1], [13, g.top - 7, .8], [9, g.top - 15, .6]].forEach(([x, y, k]) => {
+        const r = 2.2 * k * s2;
+        front += `<path d="M${f(x)} ${f(y - r)}Q${f(x)} ${f(y)} ${f(x + r)} ${f(y)}Q${f(x)} ${f(y)} ${f(x)} ${f(y + r)}Q${f(x)} ${f(y)} ${f(x - r)} ${f(y)}Q${f(x)} ${f(y)} ${f(x)} ${f(y - r)}Z" fill="#f1c232" opacity="${o(s2)}"/>`;
+      });
+    }
+    if (pose.pulse !== undefined) {
+      for (let i = 0; i < 3; i++) {
+        const p = ((pose.pulse / 1.8 + i / 3) % 1), e = quint(p);
+        back += `<ellipse cx="0" cy="${f(cy)}" rx="${f(13 + e * 11)}" ry="${f(12 + e * 10)}" fill="none" stroke="${color}" stroke-width="${f(1.4 * (1 - p))}" opacity="${o((1 - p) * .55)}"/>`;
+      }
+    }
+    if (pose.badge > 0) {
+      const sc = quint(pose.badge) * (1 + (pose.badgePop || 0) * .25);
+      front += `<g transform="translate(9.5 ${f(g.top + 3)}) scale(${f(sc)})" opacity="${o(1)}"><circle r="4.1" fill="#fff"/><circle r="3.3" fill="${INK}"/><text y="1.5" text-anchor="middle" font-family="Mulish, Arial, sans-serif" font-weight="900" font-size="4.4" fill="#fff">1</text></g>`;
+    }
+    if (pose.shock !== undefined && pose.shock < .35) {
+      const p = quint(pose.shock / .35);
+      [-1, 0, 1].forEach(i => {
+        const a = -Math.PI / 2 + i * .55, r0 = 13 + p * 4, r1 = r0 + 3.4 * (1 - p);
+        front += `<path d="M${f(Math.cos(a) * r0)} ${f(g.top / 2 + Math.sin(a) * r0 - 2)}L${f(Math.cos(a) * r1)} ${f(g.top / 2 + Math.sin(a) * r1 - 2)}" stroke="${INK}" stroke-width="1.2" stroke-linecap="round" opacity="${o(1 - p)}"/>`;
+      });
+    }
+    if (pose.zzz !== undefined) {
+      [0, 1].forEach(i => {
+        const p = ((pose.zzz / 2.6 + i * .5) % 1), x = 9 + p * 6, y = g.top - 2 - p * 13, z = 2 + p * 2.4;
+        front += `<path d="M${f(x)} ${f(y)}h${f(z)}l${f(-z)} ${f(z)}h${f(z)}" fill="none" stroke="${INK}" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round" opacity="${o(bell(p) * .6)}"/>`;
+      });
+    }
+    return { back, front };
+  }
+
+  const NUMERIC = ['gaze', 'gazeY', 'lid', 'lift', 'stretch', 'lean', 'wide', 'jelly'];
+  const BASE = { gaze: 0, gazeY: 0, lid: 0, lift: 0, stretch: 1, lean: 0, wide: 1, jelly: 0 };
+
+  function poseAt(opts, t) {
+    const { state = 'idle', seed = 0, look } = opts;
+    const pose = { ...BASE, ...(STATES[state] || STATES.idle)(t, seed) };
+    if (look && state === 'idle') { pose.gaze = look[0]; pose.gazeY = look[1]; }
+    return pose;
+  }
+
+  function blended(opts, t) {
+    const pose = poseAt(opts, t);
+    if (!opts.prev || opts.prev.state === opts.state) return { pose, old: null, mix: 1 };
+    const mix = quint((t - opts.prev.at) / .45);
+    if (mix >= 1) return { pose, old: null, mix: 1 };
+    const old = poseAt({ ...opts, state: opts.prev.state }, t);
+    const blend = {};
+    NUMERIC.forEach(k => { blend[k] = old[k] + (pose[k] - old[k]) * mix; });
+    return { pose: { ...pose, ...blend, mood: mix > .5 ? pose.mood : old.mood }, old, mix };
+  }
+
+  function frame(opts = {}, t = 0) {
+    const { shadow = true } = opts;
+    const { pose, old, mix } = blended(opts, t);
+    const before = blended(opts, t - .04).pose;
+    pose.smear = clamp((pose.gaze - before.gaze) / .04 * .05, -.45, .45);
+    const morph = opts.morph && opts.morph.from !== opts.shape ? { from: opts.morph.from, p: quint((t - opts.morph.at) / .6) } : null;
+    const jelly = pose.jelly + (morph && morph.p < 1 ? Math.sin(morph.p * Math.PI * 2) * .05 * (1 - morph.p) : 0);
+    const g = geometry(opts.shape, morph && morph.p < 1 ? morph : null, jelly, t * 2);
+    const color = COLORS[opts.color] || opts.color || COLORS.red;
+    const now = fx(pose, g, color, mix);
+    const was = old ? fx(old, g, color, 1 - mix) : { back: '', front: '' };
+    const lift = pose.lift, st = pose.stretch;
+    const body = markup({ ...opts, ...pose, color, mood: pose.mood || opts.mood, d: g.d, top: g.top, eyesY: g.eyesY });
+    const ground = shadow ? `<ellipse cx="0" cy="1" rx="${f(12 - lift * .4)}" ry="${f(2.4 - lift * .08)}" fill="${INK}" opacity="${f(.1 - lift * .004)}"/>` : '';
+    return `${ground}<g transform="translate(0 ${f(-lift)})">${was.back}${now.back}<g transform="rotate(${f(pose.lean)}) scale(${f(1 / Math.sqrt(st))} ${f(st)})">${body}</g>${was.front}${now.front}</g>`;
+  }
+
+  const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animate(node, draw, still = 0) {
+    let elapsed = still, last = 0, raf = 0, seen = true, html = '';
+    const paint = t => { const next = draw(t); if (next !== html) { node.innerHTML = next; html = next; } };
+    paint(still);
+    if (reducedMotion()) return () => {};
+    const tick = now => {
+      raf = 0;
+      if (!node.isConnected) return;
+      elapsed += last ? Math.min((now - last) / 1000, .05) : 0;
+      last = now;
+      paint(elapsed);
+      schedule();
+    };
+    const schedule = () => { if (!raf && seen && !document.hidden) raf = requestAnimationFrame(tick); else if (!seen || document.hidden) last = 0; };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => { seen = entry.isIntersecting; last = 0; schedule(); }).observe(node.closest('svg') || node);
+    }
+    document.addEventListener('visibilitychange', () => { last = 0; schedule(); });
+    schedule();
+    return () => { if (raf) cancelAnimationFrame(raf); raf = 0; seen = false; };
+  }
+
+  let uid = 0;
+  function live(node, opts = {}) {
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '-24 -44 48 50');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('class', 'gb-live');
+    const g = document.createElementNS(NS, 'g');
+    svg.append(g);
+    node.replaceChildren(svg);
+    const look = [0, 0], target = [0, 0];
+    let pointerAt = -1e9, clock = 0;
+    const config = { clip: `gb-live-${++uid}`, seed: uid * 1.37, ...opts };
+    if (config.follow) {
+      addEventListener('pointermove', e => {
+        const r = svg.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * .45);
+        const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 320);
+        target[0] = dx / d * k; target[1] = dy / d * k * .8;
+        pointerAt = clock;
+      }, { passive: true });
+    }
+    const stop = animate(g, t => {
+      const dt = t - clock; clock = t;
+      const following = config.follow && t - pointerAt < 2.4;
+      const goal = following ? target : glance(t, config.seed);
+      const k = 1 - Math.exp(-Math.max(0, dt) * (following ? 14 : 18));
+      look[0] += (goal[0] - look[0]) * k; look[1] += (goal[1] - look[1]) * k;
+      return frame({ ...config, look: config.follow ? look : undefined }, t);
+    });
+    return {
+      set(next) {
+        if (next.state && next.state !== config.state) config.prev = { state: config.state || 'idle', at: clock };
+        if (next.shape && next.shape !== config.shape) config.morph = { from: config.shape || 'bean', at: clock };
+        Object.assign(config, next);
+      },
+      stop
+    };
+  }
+
+  const bot = (x, y, opts, scale = 1, rotate = 0) =>
+    `<g transform="translate(${f(x)} ${f(y)}) rotate(${f(rotate)}) scale(${scale})">${markup({ palette: GOODS, ...opts })}</g>`;
+  const liveBot = (x, y, opts, t, scale = 1) =>
+    `<g transform="translate(${f(x)} ${f(y)}) scale(${scale})">${frame({ palette: GOODS, ...opts }, t)}</g>`;
+  const crate = (x, y, type, scale = 1, opacity = 1) =>
+    `<rect x="${f(x - 2.4 * scale)}" y="${f(y - 2.7 * scale)}" width="${f(4.8 * scale)}" height="${f(5.4 * scale)}" rx="${f(1.1 * scale)}" fill="${GOODS[type] || '#b3a994'}" opacity="${f(opacity)}"/>`;
+  const pop = (x, y, text, p, size = 8, color = '#c8102e') => p <= 0 || p >= 1 ? '' :
+    `<text x="${f(x)}" y="${f(y - ease(p) * 9)}" text-anchor="middle" font-family="Mulish, Arial, sans-serif" font-weight="900" font-size="${f(size * (.7 + .3 * ease(p / .3)))}" fill="${color}" opacity="${f(1 - smooth((p - .6) / .4))}">${text}</text>`;
+  const arc = (a, b, p, h) => [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p - Math.sin(p * Math.PI) * h];
+
+  function truck(x, filled, opts = {}) {
+    const { blinkT = 0, happy = false, bounce = 0, wheel = 0 } = opts;
+    let out = `<g transform="translate(${f(x)} ${f(-bounce)})">`;
+    out += `<ellipse cx="-2" cy="1" rx="25" ry="2.6" fill="${INK}" opacity=".1"/>`;
+    out += `<rect x="-22" y="-29" width="30" height="25" rx="2" fill="#f1ece8" stroke="#e1dcd8" stroke-width=".6"/>`;
+    out += `<rect x="-19.5" y="-26.5" width="25" height="16" rx="1.2" fill="#3d3532"/>`;
+    for (let i = 0; i < 3; i++) {
+      const type = filled[i];
+      if (type) out += `<rect x="${-18.8 + i * 8.2}" y="-18.4" width="7.4" height="7.4" rx="1.2" fill="${GOODS[type]}"/>`;
+      else out += `<rect x="${-18.8 + i * 8.2}" y="-18.4" width="7.4" height="7.4" rx="1.2" fill="none" stroke="#6b635e" stroke-width=".6" stroke-dasharray="1.4 1.2"/>`;
+    }
+    out += `<rect x="-22" y="-8.5" width="30" height="2.6" fill="#c8102e"/>`;
+    out += `<path d="M9 -22H16Q21 -22 22.5 -15L23.5 -9V-4H9Z" fill="#c8102e"/>`;
+    out += `<path d="M15.6 -20H17Q19.6 -20 20.6 -15H15.6Z" fill="#fff" opacity=".3"/>`;
+    const eyeY = -13.6;
+    out += happy
+      ? `<path d="M12.4 ${eyeY + 1}q1.4 -2.6 2.8 0M17 ${eyeY + 1}q1.4 -2.6 2.8 0" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>`
+      : [13.8, 18.4].map(cx => `<ellipse cx="${cx}" cy="${eyeY}" rx="1.4" ry="${f(Math.max(.35, 2.1 * (1 - blink(blinkT, 9))))}" fill="#fff"/>`).join('');
+    out += `<rect x="-22.5" y="-5" width="46.5" height="2.4" rx="1.2" fill="#2b2522"/>`;
+    for (const cx of [-15, -2, 16]) {
+      out += `<circle cx="${cx}" cy="-1.2" r="3.4" fill="#2b2522"/><circle cx="${cx}" cy="-1.2" r="1.3" fill="#cfc7c1"/>`;
+      out += `<path d="M${cx} -1.2l${f(Math.cos(wheel) * 2.6)} ${f(Math.sin(wheel) * 2.6)}" stroke="#cfc7c1" stroke-width=".6"/>`;
+    }
+    return out + '</g>';
+  }
+
+  const SCENES = {
+    see: {
+      view: '-26 -48 80 52', loop: 6.4, still: 3.6,
+      draw(t) {
+        const lines = [13, 19, 9, 16], start = .5;
+        const shown = clamp((t - start) / 3.2) * lines.length;
+        const reading = Math.min(lines.length - 1, Math.floor(shown));
+        const fade = 1 - smooth((t - 5.6) / .6);
+        const line = (w, i) => {
+          const p = clamp(shown - i);
+          return p <= 0 ? '' : `<rect x="${i === 2 ? 9 : 5}" y="${f(7 + i * 4.4)}" width="${f(w * ease(p))}" height="1.7" rx=".85" fill="${i === reading && shown < lines.length ? '#c8102e' : '#c9c1bb'}" opacity="${f(fade)}"/>`;
+        };
+        const card = `<g transform="translate(17 -43)"><rect width="34" height="28" rx="4" fill="#fff" stroke="#e1dcd8"/><text x="2.6" y="5.6" font-family="ui-monospace, Menlo, monospace" font-size="4.4" font-weight="700" fill="#6b635e">{</text><text x="2.6" y="26.2" font-family="ui-monospace, Menlo, monospace" font-size="4.4" font-weight="700" fill="#6b635e" opacity="${f(clamp(shown - 3.6) * fade)}">}</text>${lines.map(line).join('')}</g>`;
+        const waves = [0, 1].map(i => {
+          const p = ((t * .9 + i * .5) % 1);
+          return `<path d="M${f(10 + p * 5)} ${f(-28 - p * 4)}q2 2 0 5" fill="none" stroke="#c8102e" stroke-width="1.1" stroke-linecap="round" opacity="${f(bell(p) * .5 * (shown < lines.length ? 1 : 0))}"/>`;
+        }).join('');
+        const reads = shown < lines.length && t > start;
+        const gx = reads ? .55 + (shown % 1) * .45 : glance(t, 2)[0];
+        const gy = reads ? -1 + reading * .38 : glance(t, 2)[1];
+        const done = clamp((t - 4) / .3) * (1 - clamp((t - 5.4) / .3));
+        return ground(0, 13) + card + waves + liveBot(0, 0, { state: 'idle', seed: 2, look: [gx, gy], mood: done > .5 ? 'happy' : 'calm', clip: 'gb-see' }, t, 1.25);
+      }
+    },
+    move: {
+      view: '-34 -46 100 50', loop: 4.8, still: 1.9,
+      draw(t) {
+        const cell = 14, step = .6;
+        const shelf = `<rect x="-34" y="-45" width="100" height="5" rx="1.5" fill="#e9dfcc"/>${['milk', 'butter', 'cheese', 'eggs', 'bread', 'apples', 'tomatoes'].map((type, i) => crate(-28 + i * 14, -42.6, type, .9)).join('')}`;
+        let out = shelf;
+        const span = 98, n = 3;
+        const k = Math.floor(t / step), p = (t - k * step) / step;
+        for (let i = 0; i < n; i++) {
+          const raw = (i * 28 + (k + ease(p)) * cell) % (span + cell);
+          const x = raw - 30;
+          const fade = smooth((x + 30) / 10) * (1 - smooth((x - 52) / 10));
+          const h = hop(p, 3.2);
+          const items = [['milk'], ['bread', 'eggs'], []][i];
+          out += `<g opacity="${f(fade)}">${ground(x, 11)}<g transform="translate(${f(x)} ${f(-h.lift)}) rotate(${f(bell(p) * 6)}) scale(${f(1 / Math.sqrt(h.stretch))} ${f(h.stretch)})">${markup({ palette: GOODS, items, gaze: 1, gazeY: -.1, lid: blink(t, i + 3) })}</g></g>`;
+        }
+        const g = (t % 2.4) / 2.4;
+        const fly = g > .35 && g < .75 ? arc([-1, -40], [14, -14], (g - .35) / .4, 10) : null;
+        if (fly) out += crate(fly[0], fly[1], 'cheese', 1);
+        out += `<path d="M-33 -12h7M-31 -7h5" stroke="#d6cfc9" stroke-width="1.6" stroke-linecap="round"/>`;
+        return out;
+      }
+    },
+    deliver: {
+      view: '-30 -58 104 62', loop: 6, still: 3.2,
+      draw(t) {
+        const goods = ['tomatoes', 'cheese', 'milk'];
+        const out = [];
+        const driveOff = smooth((t - 3.9) / .8), arrive = 1 - ease((t - 4.9) / .9);
+        const tx = 40 + (t < 4.9 ? driveOff * 80 : arrive * -90);
+        const loaded = t >= 4.9 ? 0 : goods.filter((_, i) => t > 1.35 + i * .45).length;
+        const filled = goods.slice(0, loaded);
+        const full = loaded === 3 && t < 4.9;
+        const bump = full ? bell((t - 2.85) / .3) * 1.6 : 0;
+        out.push(ground(-8, 13));
+        const approach = ease(t / .9);
+        const bx = -18 + approach * 10;
+        const hp = t < .9 ? hop(clamp(t / .9 * 2 % 1), 4) : { lift: 0, stretch: 1 };
+        const hasItems = goods.filter((_, i) => t < 1.35 + i * .45 || t > 5.4);
+        const cheering = t > 2.8 && t < 4.4;
+        out.push(`<g transform="translate(${f(bx)} ${f(-hp.lift)}) scale(${f(1.25 / Math.sqrt(hp.stretch))} ${f(1.25 * hp.stretch)})">${frame({ palette: GOODS, items: hasItems, state: cheering ? 'cheer' : 'idle', look: [1, -.2], seed: 4, shadow: false, clip: 'gb-deliver', prev: t > 2.8 ? { state: 'idle', at: 2.8 } : undefined }, cheering ? t - 2.8 : t)}</g>`);
+        out.push(truck(tx, filled, { blinkT: t, happy: full, bounce: bump, wheel: (t < 4.9 ? driveOff * 14 : arrive * -16) }));
+        goods.forEach((type, i) => {
+          const p = (t - (.9 + i * .45)) / .45;
+          if (p > 0 && p < 1) {
+            const [x, y] = arc([bx + (i - 1) * 6, -31], [tx - 14.9 + i * 8.2, -14.7], ease(p), 12);
+            out.push(crate(x, y, type, 1.2));
+          }
+          out.push(pop(tx - 15 + i * 8.2, -32, '+1', (t - (1.35 + i * .45)) / .8, 7));
+        });
+        out.push(pop(tx - 4, -40, '+5', (t - 2.85) / 1.1, 13));
+        if (t > 3.9 && t < 4.9) out.push(`<path d="M${f(tx - 32)} -20h-8M${f(tx - 30)} -12h-11" stroke="#d6cfc9" stroke-width="1.6" stroke-linecap="round" opacity="${f(bell((t - 3.9) / 1))}"/>`);
+        return out.join('');
+      }
+    },
+    block: {
+      view: '-40 -50 100 54', loop: 4.8, still: 2,
+      draw(t) {
+        const out = [`<rect x="-40" y="-49" width="100" height="5" rx="1.5" fill="#e9dfcc"/><rect x="-40" y="2.4" width="100" height="1.6" rx=".8" fill="#e1dcd8"/>`];
+        const fade = (1 - smooth((t - 4.3) / .5)) * smooth(t / .3);
+        const stepA = ease((t - .2) / .5) - ease((t - 2.6) / .45);
+        const ax = -26 + stepA * 24;
+        const tryP = (t - 1) / .45, bump = bell(tryP);
+        const stepB = ease((t - 3.05) / .5);
+        const bx = 28 - bump * 4 - stepB * 26;
+        const badge = (x, n, c) => `<circle cx="${f(x + 9)}" cy="-21" r="3.4" fill="#fff" stroke="${c}" stroke-width=".8"/><text x="${f(x + 9)}" y="-19.5" text-anchor="middle" font-family="Mulish, Arial, sans-serif" font-weight="900" font-size="4.4" fill="${c}">${n}</text>`;
+        const hA = t < 1.5 ? hop(clamp((t - .2) / .5), 3) : hop(clamp((t - 2.6) / .45), 3);
+        const hB = hop(clamp((t - 3.05) / .5), 3);
+        const shocked = t > 1 && t < 2.9;
+        const waiting = t > 1.45 && t < 2.6;
+        out.push(`<g opacity="${f(fade)}">`);
+        out.push(ground(ax, 11), `<g transform="translate(${f(ax)} ${f(-hA.lift)}) scale(${f(1 / Math.sqrt(hA.stretch))} ${f(hA.stretch)})">${markup({ color: 'milk', gaze: waiting ? .9 : t > 2.6 ? -1 : 1, gazeY: waiting ? -.2 : 0, lid: blink(t, 11) })}</g>`, badge(ax, 1, '#3b77b8'));
+        out.push(ground(bx, 11), `<g transform="translate(${f(bx)} ${f(-hB.lift)}) rotate(${f(bump * 8)}) scale(${f(1 / Math.sqrt(hB.stretch))} ${f(hB.stretch)})">${markup({ color: 'carrot', gaze: -1, mood: t > 3.1 && t < 3.9 ? 'happy' : 'calm', wide: shocked ? 1.3 : 1, lid: shocked ? 0 : blink(t, 12) })}</g>`, badge(bx, 2, '#e8772e'));
+        const w = clamp((t - 1.3) / .25) * (1 - clamp((t - 2.7) / .3));
+        if (w > 0) out.push(`<g transform="translate(${f(bx)} ${f(-36 - ease(w) * 3)})" opacity="${f(w)}"><rect x="-10" y="-5.5" width="20" height="10" rx="5" fill="#fff" stroke="#e1dcd8" stroke-width=".7"/><text y="1.6" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-weight="700" font-size="5" fill="#6b635e">wait</text></g>`);
+        if (bump > .2) out.push(`<path d="M${f(bx - 13)} -18l-2 -2M${f(bx - 13)} -13h-3M${f(bx - 13)} -8l-2 2" stroke="#c8102e" stroke-width="1" stroke-linecap="round" opacity="${f(bump)}"/>`);
+        out.push('</g>');
+        return out.join('');
+      }
+    },
+    clock: {
+      view: '-30 -50 88 54', loop: 6, still: 1.1,
+      draw(t) {
+        const second = t >= 3, local = second ? t - 3 : t;
+        const left = 1 - clamp(local / 2.6);
+        const sent = !second && local > 1.3;
+        const r = 7.5, c = 2 * Math.PI * r;
+        const late = second && left < .02;
+        const ring = `<g transform="translate(36 -36)"><circle r="${r}" fill="#fff" stroke="#e1dcd8" stroke-width="2.4"/><circle r="${r}" fill="none" stroke="${second ? '#c8102e' : '#3f8f4f'}" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="${f(c * (sent ? 1 - clamp(1.3 / 2.6) : left))} ${f(c)}" transform="rotate(-90)"/><text y="1.8" text-anchor="middle" font-family="Mulish, Arial, sans-serif" font-weight="900" font-size="5.2" fill="#2b2522">2s</text></g>`;
+        const state = second ? (late ? 'surprise' : 'sleep') : sent ? 'cheer' : 'think';
+        const st = state === 'cheer' ? local - 1.3 : state === 'surprise' ? local - 2.6 : local;
+        let out = ground(0, 13) + ring + liveBot(0, 0, { state, seed: 6, color: 'leaf' }, st, 1.25);
+        if (sent) {
+          const q = ease((local - 1.3) / .7);
+          out += `<g transform="translate(${f(10 + q * 22)} ${f(-24 + bell(q) * -6)})" opacity="${f(1 - smooth((local - 2.4) / .5))}"><rect x="-11" y="-5" width="22" height="9.6" rx="2.4" fill="#2b2522"/><text y="1.4" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-weight="700" font-size="4.6" fill="#fff">move</text></g>`;
+        }
+        if (second) out += pop(24, -16, 'wait', (local - 2.5) / .9, 7, '#6b635e');
+        return out;
+      }
+    },
+    oops: {
+      view: '-26 -50 68 54', loop: 3.4, still: .5,
+      draw(t) {
+        const p = t / 3.4, tag = clamp((t - .15) / .2) * (1 - smooth((p - .85) / .15));
+        return ground(0, 13) + liveBot(0, 0, { state: 'surprise', seed: 8, color: 'plum' }, t, 1.25) +
+          `<g transform="translate(26 ${f(-34 - ease(tag) * 4)}) rotate(${f(8 * (1 - ease(tag)))})" opacity="${f(tag)}"><rect x="-13" y="-6" width="26" height="12" rx="6" fill="#c8102e"/><text y="2" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-weight="700" font-size="6" fill="#fff">4003</text></g>`;
+      }
+    },
+    crew: {
+      view: '-16 -46 152 50', loop: 6.4, still: .2,
+      draw(t) {
+        const crew = [['bean', 'red'], ['round', 'milk'], ['box', 'leaf'], ['tall', 'carrot'], ['dome', 'plum']];
+        return crew.map(([shape, color], i) => {
+          const local = ((t - i * .32) % 6.4 + 6.4) % 6.4;
+          const state = local < 3.2 ? 'hello' : 'idle';
+          return ground(i * 30, 11) + liveBot(i * 30, 0, { shape, color, state, seed: i + 20 }, state === 'hello' ? local : local + i, 1);
+        }).join('');
+      }
+    }
+  };
+  const ground = (x, w) => `<ellipse cx="${f(x)}" cy="0" rx="${w}" ry="${f(w * .28)}" fill="rgba(23,20,18,.1)"/>`;
+
+  function pose(kind, t) {
+    const scene = SCENES[kind];
+    return scene ? `<svg viewBox="${scene.view}" aria-hidden="true">${scene.draw(t ?? scene.still)}</svg>` : '';
+  }
+
+  function play(node, kind) {
+    const scene = SCENES[kind];
+    if (!scene) return;
+    node.innerHTML = pose(kind);
+    const svg = node.firstElementChild;
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    svg.replaceChildren(g);
+    animate(g, t => scene.draw(t % scene.loop), scene.still);
+  }
+
+  function hydrate(root = document) {
+    root.querySelectorAll('[data-live-bot]').forEach(node => {
+      if (node.gbLive) return;
+      const d = node.dataset;
+      node.gbLive = live(node, { shape: d.shape, color: d.color, kind: d.eyes, state: d.state || 'idle', follow: 'follow' in d, patch: 'patch' in d, items: d.items ? d.items.split(',') : [] });
+      if (d.cycle && !reducedMotion()) {
+        const steps = d.cycle.split(',').map(step => { const [state, secs] = step.split(':'); return [state, Number(secs) * 1000 || 3000]; });
+        let i = 0;
+        const next = () => { node.gbLive.set({ state: steps[i][0] }); setTimeout(() => { i = (i + 1) % steps.length; next(); }, steps[i][1]); };
+        next();
+      }
+    });
+    root.querySelectorAll('[data-scene]').forEach(node => { if (!node.gbScene) { node.gbScene = true; play(node, node.dataset.scene); } });
+  }
+
+  window.GroceryBot = { SHAPES, COLORS, GOODS, STATES, markup, avatar, pose, light, blink, glance, frame, animate, live, play, hydrate };
+  hydrate();
+})();
+</script>
+<script>(()=>{var A={red:"#c8102e",ink:"#2b2522",leaf:"#3f8f4f",milk:"#3b77b8",carrot:"#e8772e",plum:"#7a4a93",lemon:"#f1c232",oat:"#e9dfcc"},O=Object.keys(A),Y={color:O,shape:["bean","round","box","tall","dome"],eyes:["dots","happy","wink","visor","sleepy"],carriage:["box","cooler","canvas","flatbed"],head:["flat","nose","slant","high"],visor:["none","shade","lights","tint"],decal:["stripe","band","dots","plain"]},C={shape:"bean",color:"red",eyes:"dots",carriage:"box",head:"flat",visor:"none",decal:"stripe"};var B=32;function y(t){let a=t&&typeof t=="object"?t:{},o={};for(let[n,i]of Object.entries(Y))o[n]=i.includes(a[n])?a[n]:C[n];return typeof a.name=="string"&&a.name.trim()&&(o.name=a.name.trim().replace(/\s+/g," ").slice(0,B)),o}var H="#f6f2ee",D="#e1dcd8";var q=`<path d="M-72 20V-45Q-72 -52 -65 -52H7Q14 -52 14 -45V20Z" fill="${H}" stroke="${D}" stroke-width="1.2"/>`;function w(t,a="team-bot"){let o=y(t),n=globalThis.GroceryBot?.markup({shape:o.shape,color:o.color,kind:o.eyes})??"";return`<svg xmlns="http://www.w3.org/2000/svg" class="${a}" viewBox="-18 -38 36 43" aria-hidden="true" focusable="false"><ellipse cy="2" rx="12" ry="2.5" fill="#171412" opacity=".09"/>${n}</svg>`}var $={basket:"M952 330.92c-5.879-6.69-14.446-10.897-23.996-10.92l-0.004-0h-177.48l-214.52-245.080c-5.892-6.658-14.458-10.834-24-10.834s-18.108 4.176-23.971 10.8l-0.029 0.034-214.52 245.080h-177.48c-0.001-0-0.001-0-0.002-0-17.673 0-32 14.327-32 32 0 1.495 0.103 2.966 0.301 4.407l-0.019-0.167 60.28 452.24c4.432 31.46 31.123 55.413 63.429 55.52l0.011 0h648c32.317-0.107 59.008-24.061 63.401-55.18l0.039-0.34 60.28-452.24c0.173-1.25 0.272-2.695 0.272-4.163 0-8.127-3.030-15.547-8.022-21.191l0.030 0.034zM326.4 736c-0.484 0.029-1.050 0.045-1.62 0.045s-1.136-0.016-1.698-0.048l0.078 0.004c-0.048 0-0.104 0-0.16 0-16.546 0-30.159-12.558-31.828-28.663l-0.012-0.137-22.4-224c-0.102-0.96-0.16-2.073-0.16-3.2 0-17.673 14.327-32 32-32 16.546 0 30.16 12.558 31.828 28.663l0.012 0.137 22.4 224c0.114 1.014 0.179 2.189 0.179 3.379 0 16.482-12.461 30.054-28.476 31.808l-0.143 0.013zM544 704c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-224c0-17.673 14.327-32 32-32s32 14.327 32 32v0zM358.52 320l153.48-175.4 153.48 175.4zM755.040 483.2l-22.4 224c-1.679 16.229-15.271 28.779-31.798 28.8l-0.002 0c-0.484 0.029-1.050 0.045-1.62 0.045s-1.136-0.016-1.698-0.048l0.078 0.004c-16.242-1.68-28.8-15.293-28.8-31.84 0-1.127 0.058-2.241 0.172-3.338l-0.012 0.137 22.4-224c1.68-16.242 15.294-28.8 31.84-28.8 17.673 0 32 14.327 32 32 0 1.127-0.058 2.24-0.172 3.337l0.012-0.137z","chart-bar":"M928 832c0 17.673-14.327 32-32 32v0h-768c-17.673 0-32-14.327-32-32s14.327-32 32-32v0h32v-256c0-17.673 14.327-32 32-32v0h96c17.673 0 32 14.327 32 32v0 256h64v-448c0-17.673 14.327-32 32-32v0h128c17.673 0 32 14.327 32 32v0 448h64v-640c0-17.673 14.327-32 32-32v0h160c17.673 0 32 14.327 32 32v0 640h32c17.673 0 32 14.327 32 32v0z",coins:"M736 358.28v-22.28c0-100.32-151.32-176-352-176s-352 75.68-352 176v160c0 83.56 105 149.96 256 169.84v22.16c0 100.32 151.32 176 352 176s352-75.68 352-176v-160c0-82.8-101.68-149.28-256-169.72zM224 587.48c-78.36-21.88-128-57.92-128-91.48v-56.28c32.64 23.12 76.36 41.76 128 54.28zM544 494c51.64-12.52 95.36-31.16 128-54.28v56.28c0 33.56-49.64 69.6-128 91.48zM480 779.48c-78.36-21.88-128-57.92-128-91.48v-16.68c10.52 0.4 21.16 0.68 32 0.68 15.52 0 30.68-0.52 45.56-1.4 13.044 4.934 29.888 10.094 47.091 14.341l3.349 0.699zM480 601c-28.635 4.455-61.664 7-95.286 7-0.251 0-0.502-0-0.752-0l0.039 0c-0.212 0-0.463 0-0.714 0-33.623 0-66.651-2.545-98.903-7.453l3.616 0.453v-95.16c28.521 3.922 61.48 6.161 94.962 6.161 0.365 0 0.73-0 1.094-0.001l-0.057 0c0.308 0 0.673 0.001 1.038 0.001 33.482 0 66.441-2.239 98.735-6.575l-3.773 0.414zM736 793c-28.849 4.455-62.127 7-96 7s-67.151-2.545-99.654-7.454l3.654 0.454v-95.4c28.732 4.074 61.918 6.4 95.648 6.4 0.124 0 0.248-0 0.371-0l-0.019 0c0.308 0 0.673 0.001 1.038 0.001 33.482 0 66.441-2.239 98.735-6.575l-3.773 0.414zM928 688c0 33.56-49.64 69.6-128 91.48v-93.48c51.64-12.52 95.36-31.16 128-54.28z",couch:"M64 400v-112c0-35.346 28.654-64 64-64v0h336c8.837 0 16 7.163 16 16v0 304h-224c0-70.692-57.308-128-128-128v0h-48c-8.837 0-16-7.163-16-16v0zM896 416h48c8.837 0 16-7.163 16-16v0-112c0-35.346-28.654-64-64-64v0h-336c-8.837 0-16 7.163-16 16v0 304h224c0-70.692 57.308-128 128-128v0zM928 480h-32c-35.346 0-64 28.654-64 64v0 32c0 17.673-14.327 32-32 32v0h-576c-17.673 0-32-14.327-32-32v0-32c0-35.346-28.654-64-64-64v0h-32c-35.346 0-64 28.654-64 64v0 128c0 35.346 28.654 64 64 64v0h32v62.92c-0.002 0.144-0.004 0.313-0.004 0.483 0 17.072 13.075 31.091 29.758 32.588l0.126 0.009c0.634 0.045 1.374 0.070 2.12 0.070 17.673 0 32-14.327 32-32 0-0.025-0-0.049-0-0.074l0 0.004v-64h640v62.92c-0.002 0.131-0.003 0.285-0.003 0.44 0 17.064 13.078 31.073 29.758 32.551l0.125 0.009c0.634 0.045 1.374 0.070 2.12 0.070 17.673 0 32-14.327 32-32 0-0.025-0-0.049-0-0.074l0 0.004v-63.92h32c35.346 0 64-28.654 64-64v0-128c0-35.346-28.654-64-64-64v0z",crosshair:"M928 480h-33.36c-16.329-186.717-163.923-334.311-349.188-350.537l-1.452-0.103v-33.36c0-17.673-14.327-32-32-32s-32 14.327-32 32v0 33.36c-186.717 16.329-334.311 163.923-350.537 349.188l-0.103 1.452h-33.36c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h33.36c16.329 186.717 163.923 334.311 349.188 350.537l1.452 0.103v33.36c0 17.673 14.327 32 32 32s32-14.327 32-32v0-33.36c186.717-16.329 334.311-163.923 350.537-349.188l0.103-1.452h33.36c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM800 544h30.4c-15.895 151.349-135.051 270.505-285.009 286.281l-1.391 0.119v-30.4c0-17.673-14.327-32-32-32s-32 14.327-32 32v0 30.4c-151.349-15.895-270.505-135.051-286.281-285.009l-0.119-1.391h30.4c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-30.4c15.895-151.349 135.051-270.505 285.009-286.281l1.391-0.119v30.4c0 17.673 14.327 32 32 32s32-14.327 32-32v0-30.4c151.349 15.895 270.505 135.051 286.281 285.009l0.119 1.391h-30.4c-17.673 0-32 14.327-32 32s14.327 32 32 32v0zM672 512c0 88.366-71.634 160-160 160s-160-71.634-160-160c0-88.366 71.634-160 160-160v0c88.366 0 160 71.634 160 160v0z","flag-checkered":"M909.28 195c-3.885-1.808-8.435-2.863-13.23-2.863-8.058 0-15.421 2.979-21.047 7.895l0.038-0.032c-112 96.88-206.88 49.92-316.84-4.52-113.92-56.44-243.080-120.32-387.16 4.52v0c-6.735 5.861-10.984 14.429-11.040 23.99l-0 0.010v672c0 17.673 14.327 32 32 32s32-14.327 32-32v0-176.92c107.16-84.64 199.48-39 305.8 13.64 65.6 32.44 136.24 67.4 212 67.4 55.72 0 114.16-19 175.28-72 6.735-5.861 10.984-14.429 11.040-23.99l0-0.010v-480.12c-0.070-12.838-7.689-23.88-18.641-28.918l-0.199-0.082zM224 641.76v-202.24c67.4-45.12 130.56-46.36 192-29.36v206.96c-60.52-15.24-124.52-14.28-192 24.64zM416 203.48c37 11.32 74.44 29.8 113.8 49.28 45.040 22.28 92.44 45.72 142.2 58.24v206.96c61.4 17 124.56 15.76 192-29.4v200.44c-67.48 53.28-129.080 54.88-192 35.64v-206.68c-86.48-24-169.52-84-256-107.8z",footprints:"M864.24 768v48c0 79.595-64.525 144.12-144.12 144.12s-144.12-64.525-144.12-144.12v0-48c0-17.673 14.327-32 32-32v0h224c0.071-0.001 0.156-0.001 0.24-0.001 17.673 0 32 14.327 32 32 0 0-0 0.001-0 0.001l0-0zM416 640h-224c-17.673 0-32 14.327-32 32v0 48c0 79.529 64.471 144 144 144s144-64.471 144-144v0-48c0-17.673-14.327-32-32-32v0zM304 64c-46.56 0-91.72 41.24-127.2 116-55.72 117.52-74.24 292 1.16 384 5.913 7.178 14.803 11.72 24.753 11.72 0.016 0 0.033-0 0.049-0l-0.003 0h202.2c0.014 0 0.030 0 0.047 0 9.951 0 18.84-4.542 24.709-11.665l0.044-0.055c75.4-92 56.88-266.6 1.16-384-35.52-74.76-80.64-116-126.92-116zM619.2 672h202.2c0.014 0 0.030 0 0.047 0 9.951 0 18.84-4.542 24.709-11.665l0.044-0.055c75.4-92 56.88-266.6 1.16-384-35.64-75.040-80.8-116.28-127.36-116.28s-91.56 41.24-127.080 116c-55.72 117.52-74.24 292 1.16 384 5.91 7.337 14.89 11.994 24.959 12l0.001 0z",ghost:"M512 96c-211.976 0.25-383.75 172.023-384 383.976l-0 0.024v384c-0 0.002-0 0.004-0 0.007 0 17.673 14.327 32 32 32 7.723 0 14.806-2.736 20.335-7.291l-0.055 0.044 97.040-79.4 97.080 79.4c5.47 4.501 12.546 7.23 20.26 7.23s14.79-2.729 20.315-7.275l-0.055 0.044 97.080-79.4 97.080 79.4c5.47 4.501 12.546 7.23 20.26 7.23s14.79-2.729 20.315-7.275l-0.055 0.044 97.080-79.4 97.040 79.4c5.474 4.511 12.557 7.247 20.28 7.247 17.673 0 32-14.327 32-32 0-0.002-0-0.005-0-0.007l0 0v-384c-0.25-211.976-172.023-383.75-383.976-384l-0.024-0zM400 512c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0zM624 512c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0z","hourglass-low":"M800 302.56v-142.56c0-35.346-28.654-64-64-64v0h-448c-35.346 0-64 28.654-64 64v0 144c0.047 20.856 10.019 39.373 25.441 51.084l0.159 0.116 209.080 156.8-209.080 156.8c-15.581 11.827-25.553 30.344-25.6 51.192l-0 0.008v144c0 35.346 28.654 64 64 64v0h448c35.346 0 64-28.654 64-64v0-142.56c-0.056-20.763-9.941-39.205-25.246-50.927l-0.154-0.113-209.52-158.4 209.52-158.36c15.464-11.847 25.351-30.304 25.4-51.072l0-0.008zM712.92 704h-403.6l202.68-152zM736 302.56l-224 169.44-224-168v-144h448z",lightning:"M855.4 501.84l-448 480c-5.854 6.235-14.148 10.12-23.351 10.12-17.673 0-32-14.327-32-32 0-2.165 0.215-4.28 0.625-6.324l-0.034 0.204 58.64-293.32-230.52-86.56c-12.247-4.675-20.789-16.326-20.789-29.972 0-8.542 3.347-16.303 8.802-22.042l-0.013 0.014 448-480c5.854-6.235 14.148-10.12 23.351-10.12 17.673 0 32 14.327 32 32 0 2.165-0.215 4.28-0.625 6.324l0.034-0.204-58.8 293.64 230.52 86.44c12.174 4.712 20.65 16.326 20.65 29.919 0 8.471-3.292 16.173-8.666 21.898l0.016-0.017z","map-trifold":"M915.68 198.76c-5.368-4.214-12.221-6.758-19.668-6.758-2.76 0-5.439 0.349-7.994 1.006l0.222-0.048-244.52 61.12-245.4-122.72c-4.162-2.121-9.077-3.364-14.283-3.364-2.769 0-5.456 0.352-8.019 1.013l0.222-0.049-256 64c-14.031 3.594-24.238 16.125-24.24 31.040l-0 0v576c0.003 17.671 14.329 31.995 32 31.995 2.756 0 5.43-0.348 7.982-1.003l-0.222 0.048 244.52-61.12 245.4 122.72c4.177 2.105 9.102 3.344 14.315 3.36l0.005 0c2.757-0.002 5.431-0.352 7.982-1.008l-0.222 0.048 256-64c14.031-3.594 24.238-16.125 24.24-31.040l0-0v-576c0-0.002 0-0.005 0-0.007 0-10.221-4.792-19.322-12.251-25.181l-0.069-0.052zM384 704c-2.757 0.002-5.431 0.352-7.982 1.008l0.222-0.048-216.24 54.040v-510l220.28-55.080 3.72 1.84zM864 775l-220.28 55.080-3.72-1.84v-508.24c0.042 0 0.091 0 0.141 0 2.705 0 5.331-0.336 7.84-0.967l-0.221 0.047 216.24-54.080z",medal:"M864 384c0-0.062 0-0.136 0-0.209 0-194.404-157.596-352-352-352s-352 157.596-352 352c0 109.037 49.577 206.494 127.418 271.060l0.582 0.469v304.68c-0 0.007-0 0.015-0 0.023 0 17.673 14.327 32 32 32 5.22 0 10.148-1.25 14.502-3.467l-0.182 0.084 177.68-88.64 177.72 88.84c4.075 1.995 8.868 3.162 13.933 3.162 0.122 0 0.244-0.001 0.365-0.002l-0.019 0c17.673 0 32-14.327 32-32v0-304.68c78.417-64.926 128-162.296 128-271.246 0-0.026-0-0.052-0-0.078l0 0.004zM224 384c0-159.058 128.942-288 288-288s288 128.942 288 288c0 159.058-128.942 288-288 288v0c-158.985-0.182-287.818-129.015-288-287.983l-0-0.017zM288 384c0-123.712 100.288-224 224-224s224 100.288 224 224c0 123.712-100.288 224-224 224v0c-123.657-0.137-223.863-100.343-224-223.987l-0-0.013z","moon-stars":"M960 384c0 17.673-14.327 32-32 32v0h-64v64c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-64h-64c-17.673 0-32-14.327-32-32s14.327-32 32-32v0h64v-64c0-17.673 14.327-32 32-32s32 14.327 32 32v0 64h64c17.673 0 32 14.327 32 32v0zM576 224h32v32c0 17.673 14.327 32 32 32s32-14.327 32-32v0-32h32c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-32v-32c0-17.673-14.327-32-32-32s-32 14.327-32 32v0 32h-32c-17.673 0-32 14.327-32 32s14.327 32 32 32v0zM836.56 601.32c-20.528 4.248-44.12 6.681-68.281 6.681-194.559 0-352.28-157.721-352.28-352.28 0-24.16 2.432-47.752 7.065-70.545l-0.384 2.264c0.385-1.862 0.605-4.001 0.605-6.192 0-17.673-14.327-32-32-32-3.95 0-7.733 0.716-11.226 2.024l0.221-0.073c-148.377 55.382-252.125 195.898-252.125 360.645 0 212.077 171.923 384 384 384 164.747 0 305.263-103.748 359.776-249.475l0.869-2.651c1.236-3.272 1.952-7.055 1.952-11.005 0-17.673-14.327-32-32-32-2.191 0-4.33 0.22-6.397 0.64l0.205-0.035z",package:"M894.72 264.6l-352-192.6c-8.858-4.986-19.446-7.923-30.72-7.923s-21.861 2.937-31.040 8.088l0.32-0.165-352 192.68c-19.939 11.067-33.224 31.976-33.28 55.992l-0 0.008v382.56c0.056 24.024 13.341 44.933 32.953 55.833l0.327 0.167 352 192.68c8.858 4.986 19.446 7.923 30.72 7.923s21.861-2.937 31.040-8.088l-0.32 0.165 352-192.68c19.939-11.067 33.224-31.976 33.28-55.992l0-0.008v-382.52c-0.010-24.071-13.306-45.034-32.953-55.953l-0.327-0.167zM512 128l321.4 176-119.12 65.16-321.4-176zM512 480l-321.4-176 135.64-74.28 321.4 176zM864 703.4v0l-320 175.16v-343.24l128-70.040v142.72c0 17.673 14.327 32 32 32s32-14.327 32-32v0-177.76l128-70.040v343.040z","person-simple-walk":"M480 192c0-70.692 57.308-128 128-128s128 57.308 128 128c0 70.692-57.308 128-128 128v0c-70.692 0-128-57.308-128-128v0zM832 544c-114.56 0-167.24-53.2-223-109.48-14.12-14.28-28.72-29.040-44-42.32-148-128.56-384.88 90.92-394.88 100.32-5.897 5.808-9.551 13.879-9.551 22.804 0 17.673 14.327 32 32 32 8.218 0 15.713-3.098 21.38-8.19l-0.029 0.026c35.755-32.402 75.768-61.287 118.785-85.458l3.295-1.702c55.12-29.52 101.56-40.92 138.8-34.32l-216.16 497.56c-1.67 3.752-2.642 8.129-2.642 12.733 0 13.059 7.823 24.292 19.038 29.266l0.204 0.081c3.732 1.693 8.094 2.68 12.685 2.68 0.026 0 0.053-0 0.079-0l-0.004 0c0.004 0 0.009 0 0.014 0 13.058 0 24.29-7.822 29.265-19.036l0.081-0.204 134.36-309.080 124.28 88.8v207.52c0 17.673 14.327 32 32 32s32-14.327 32-32v0-224c0-0 0-0.001 0-0.001 0-10.694-5.246-20.164-13.305-25.974l-0.095-0.065-148.8-106.28 53.72-123.68c10.56 9.76 21.040 20.28 32 31.36 56.68 57.4 127.24 128.64 268.48 128.64 17.673 0 32-14.327 32-32s-14.327-32-32-32v0z",prohibit:"M800 512c0 0.045 0 0.098 0 0.151 0 68.188-23.8 130.818-63.546 180.035l0.426-0.545-404.52-404.52c48.796-39.316 111.54-63.108 179.84-63.108 158.948 0 287.8 128.852 287.8 287.8 0 0.066-0 0.132-0 0.199l0-0.010zM224 512c-0 0.056-0 0.122-0 0.188 0 158.948 128.852 287.8 287.8 287.8 68.3 0 131.044-23.792 180.394-63.54l-0.554 0.432-404.52-404.52c-39.32 48.672-63.12 111.301-63.12 179.489 0 0.053 0 0.106 0 0.159l-0-0.008zM944 512c0 238.587-193.413 432-432 432s-432-193.413-432-432c0-238.587 193.413-432 432-432v0c238.477 0.273 431.727 193.523 432 431.974l0 0.026zM864 512c0-194.404-157.596-352-352-352s-352 157.596-352 352c0 194.404 157.596 352 352 352v0c194.313-0.228 351.772-157.687 352-351.978l0-0.022z","road-horizon":"M956 752.32l-261.28-464.32h232c0.214 0.005 0.467 0.008 0.719 0.008 17.066 0 31.076-13.081 32.552-29.764l0.009-0.124c0.045-0.634 0.070-1.374 0.070-2.12 0-17.673-14.327-32-32-32-0.025 0-0.049 0-0.074 0l0.004-0h-830.92c-0.155-0.003-0.337-0.004-0.52-0.004-17.064 0-31.074 13.079-32.551 29.76l-0.009 0.124c-0.045 0.634-0.070 1.374-0.070 2.12 0 17.673 14.327 32 32 32 0.025 0 0.049-0 0.074-0l-0.004 0h233.28l-261.28 464.32c-2.586 4.515-4.111 9.924-4.111 15.69 0 8.543 3.348 16.305 8.803 22.044l-0.013-0.014c5.993 6.149 14.357 9.962 23.611 9.962 0.137 0 0.274-0.001 0.41-0.002l-0.021 0h367.32c8.837 0 16-7.163 16-16v0-78.92c-0.002-0.131-0.003-0.285-0.003-0.44 0-17.064 13.078-31.073 29.758-32.551l0.125-0.009c0.634-0.045 1.374-0.070 2.12-0.070 17.673 0 32 14.327 32 32 0 0.025-0 0.049-0 0.074l0-0.004v80c0 8.837 7.163 16 16 16v0h367.080c0.116 0.001 0.252 0.002 0.389 0.002 9.254 0 17.617-3.814 23.604-9.955l0.007-0.007c5.55-5.747 8.97-13.583 8.97-22.218 0-5.722-1.502-11.094-4.133-15.741l0.083 0.159zM544 560c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-64c0-17.673 14.327-32 32-32s32 14.327 32 32v0zM544 352c0 17.673-14.327 32-32 32s-32-14.327-32-32v0-32c0-17.673 14.327-32 32-32s32 14.327 32 32v0z",smiley:"M512 96c-229.75 0-416 186.25-416 416s186.25 416 416 416c229.75 0 416-186.25 416-416v0c-0.25-229.65-186.35-415.75-415.976-416l-0.024-0zM368 384c26.51 0 48 21.49 48 48s-21.49 48-48 48c-26.51 0-48-21.49-48-48v0c0-26.51 21.49-48 48-48v0zM699.68 624c-41.16 71.16-109.56 112-187.68 112s-146.52-40.8-187.68-112c-3.133-4.86-4.995-10.796-4.995-17.167 0-17.673 14.327-32 32-32 12.25 0 22.893 6.884 28.271 16.994l0.084 0.173c29.88 51.64 76.84 80 132.32 80s102.44-28.4 132.32-80c5.462-10.283 16.104-17.167 28.355-17.167 17.673 0 32 14.327 32 32 0 6.371-1.862 12.307-5.071 17.294l0.076-0.127zM656 480c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0z","smiley-angry":"M512 96c-229.75 0-416 186.25-416 416s186.25 416 416 416c229.75 0 416-186.25 416-416v0c-0.25-229.65-186.35-415.75-415.976-416l-0.024-0zM320 560c0-26.51 21.49-48 48-48s48 21.49 48 48c0 26.51-21.49 48-48 48v0c-26.51 0-48-21.49-48-48v0zM634.64 753.72c-5.819 8.655-15.574 14.273-26.641 14.273-6.602 0-12.737-1.999-17.833-5.426l0.115 0.073c-26-17.28-46.28-26.64-78.28-26.64s-52.28 9.36-78.28 26.64c-4.88 3.167-10.847 5.051-17.255 5.051-17.673 0-32-14.327-32-32 0-10.873 5.423-20.479 13.711-26.262l0.104-0.069c33.72-22.44 65.96-37.36 113.72-37.36s80 14.92 113.72 37.36c8.655 5.819 14.273 15.574 14.273 26.641 0 6.602-1.999 12.737-5.426 17.833l0.073-0.115zM656 608c-26.51 0-48-21.49-48-48s21.49-48 48-48c26.51 0 48 21.49 48 48v0c0 26.51-21.49 48-48 48v0zM721.76 378.64l-192 128c-4.99 3.371-11.14 5.381-17.76 5.381s-12.77-2.010-17.874-5.453l0.114 0.072-192-128c-8.646-5.824-14.257-15.577-14.257-26.64 0-17.683 14.335-32.017 32.017-32.017 6.619 0 12.769 2.009 17.874 5.45l-0.114-0.072 174.24 116.2 174.24-116c4.991-3.369 11.141-5.377 17.76-5.377 17.683 0 32.017 14.335 32.017 32.017 0 11.063-5.611 20.816-14.143 26.568l-0.114 0.072z",stack:"M880 676.36l-368 214.6-368-214.6c-4.157-2.115-9.065-3.354-14.263-3.354-17.673 0-32 14.327-32 32 0 11.063 5.614 20.815 14.148 26.562l0.114 0.072 384 224c4.618 2.738 10.18 4.357 16.12 4.357s11.502-1.618 16.269-4.438l-0.149 0.081 384-224c9.768-5.603 16.242-15.971 16.242-27.851 0-17.673-14.327-32-32-32-6.088 0-11.779 1.7-16.624 4.651l0.141-0.080z M880 484.36l-368 214.6-368-214.6c-4.157-2.115-9.065-3.354-14.263-3.354-17.673 0-32 14.327-32 32 0 11.063 5.614 20.815 14.148 26.562l0.114 0.072 384 224c4.618 2.738 10.18 4.357 16.12 4.357s11.502-1.618 16.269-4.438l-0.149 0.081 384-224c9.768-5.603 16.242-15.971 16.242-27.851 0-17.673-14.327-32-32-32-6.088 0-11.779 1.7-16.624 4.651l0.141-0.080z M112 347.64l384 224c4.618 2.738 10.18 4.357 16.12 4.357s11.502-1.618 16.269-4.438l-0.149 0.081 384-224c9.562-5.652 15.875-15.909 15.875-27.64s-6.313-21.988-15.726-27.559l-0.148-0.081-384-224c-4.618-2.738-10.18-4.357-16.12-4.357s-11.502 1.618-16.269 4.438l0.149-0.081-384 224c-9.562 5.652-15.875 15.909-15.875 27.64s6.313 21.988 15.726 27.559l0.148 0.081z","sun-horizon":"M992 640c0 17.673-14.327 32-32 32v0h-896c-17.673 0-32-14.327-32-32s14.327-32 32-32v0h161.8c-1.127-9.582-1.78-20.703-1.8-31.973l-0-0.027c0-159.058 128.942-288 288-288s288 128.942 288 288v0c-0.020 11.297-0.673 22.418-1.926 33.357l0.126-1.357h161.8c17.673 0 32 14.327 32 32v0zM832 768h-640c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h640c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM323.36 238.32c5.374 10.579 16.175 17.7 28.64 17.7 17.684 0 32.020-14.336 32.020-32.020 0-5.22-1.249-10.148-3.464-14.502l0.084 0.182-32-64c-5.374-10.579-16.175-17.7-28.64-17.7-17.684 0-32.020 14.336-32.020 32.020 0 5.22 1.249 10.148 3.464 14.502l-0.084-0.182zM81.68 412.64l64 32c4.172 2.133 9.1 3.383 14.32 3.383 17.675 0 32.003-14.328 32.003-32.003 0-12.454-7.114-23.247-17.501-28.536l-0.182-0.084-64-32c-4.172-2.133-9.1-3.383-14.32-3.383-17.675 0-32.003 14.328-32.003 32.003 0 12.454 7.114 23.247 17.501 28.536l0.182 0.084zM864 448c0.002 0 0.004 0 0.006 0 5.202 0 10.114-1.241 14.456-3.444l-0.182 0.084 64-32c10.568-5.373 17.683-16.166 17.683-28.62 0-17.675-14.328-32.003-32.003-32.003-5.22 0-10.148 1.25-14.502 3.467l0.182-0.084-64 32c-10.548 5.379-17.646 16.16-17.646 28.6 0 17.673 14.327 32 32 32 0.002 0 0.004-0 0.006-0l-0 0zM657.68 252.64c4.174 2.136 9.105 3.388 14.329 3.388 12.464 0 23.263-7.126 28.547-17.525l0.084-0.182 32-64c2.131-4.172 3.38-9.1 3.38-14.32 0-17.684-14.336-32.020-32.020-32.020-12.465 0-23.266 7.122-28.556 17.519l-0.084 0.182-32 64c-2.136 4.174-3.388 9.105-3.388 14.329 0 12.464 7.126 23.263 17.525 28.547l0.182 0.084z",timer:"M512 160c-212.077 0-384 171.923-384 384s171.923 384 384 384c212.077 0 384-171.923 384-384v0c-0.25-211.976-172.023-383.75-383.976-384l-0.024-0zM694.64 406.64l-160 160c-5.794 5.794-13.799 9.378-22.64 9.378-17.683 0-32.018-14.335-32.018-32.018 0-8.841 3.584-16.846 9.378-22.64l160-160c5.794-5.794 13.799-9.378 22.64-9.378 17.683 0 32.018 14.335 32.018 32.018 0 8.841-3.584 16.846-9.378 22.64l0-0zM384 64c0-17.673 14.327-32 32-32v0h192c17.673 0 32 14.327 32 32s-14.327 32-32 32v0h-192c-17.673 0-32-14.327-32-32v0z","traffic-cone":"M928 832h-73.24l-241.080-693c-8.955-25.24-32.623-42.993-60.439-43l-82.481-0c-27.807 0.001-51.472 17.737-60.301 42.513l-0.139 0.447-241.080 693.040h-73.24c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h832c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM381.72 416h260.56l66.8 192h-394.16z","traffic-signal":"M864 576h-64v-256h64c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-64v-96c0-35.346-28.654-64-64-64v0h-448c-35.346 0-64 28.654-64 64v0 96h-64c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h64v256h-64c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h64v224c0 35.346 28.654 64 64 64v0h448c35.346 0 64-28.654 64-64v0-224h64c17.673 0 32-14.327 32-32s-14.327-32-32-32v0zM512 464c-61.856 0-112-50.144-112-112s50.144-112 112-112c61.856 0 112 50.144 112 112v0c0 61.856-50.144 112-112 112v0zM512 560c61.856 0 112 50.144 112 112s-50.144 112-112 112c-61.856 0-112-50.144-112-112v0c0-61.856 50.144-112 112-112v0z","trend-up":"M960 224v256c0 0.007 0 0.016 0 0.025 0 17.673-14.327 32-32 32-8.843 0-16.848-3.587-22.64-9.385l-105.36-105.4-233.36 233.4c-5.792 5.798-13.797 9.385-22.64 9.385s-16.848-3.587-22.64-9.385l-137.36-137.4-265.36 265.4c-5.794 5.794-13.799 9.378-22.64 9.378-17.683 0-32.018-14.335-32.018-32.018 0-8.841 3.584-16.846 9.378-22.64l-0 0 288-288c5.792-5.798 13.797-9.385 22.64-9.385s16.848 3.587 22.64 9.385l137.36 137.4 210.76-210.76-105.4-105.36c-5.798-5.792-9.385-13.797-9.385-22.64 0-17.673 14.327-32 32-32 0.009 0 0.018 0 0.027 0l255.999-0c17.673 0 32 14.327 32 32v0z",trophy:"M928 256h-96v-64c0-17.673-14.327-32-32-32v0h-576c-17.673 0-32 14.327-32 32v0 64h-96c-35.346 0-64 28.654-64 64v0 64c0 88.366 71.634 160 160 160v0h14.6c38.943 120.722 144.334 209.004 272.018 222.323l1.382 0.117v97.56h-96c-17.673 0-32 14.327-32 32s14.327 32 32 32v0h256c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-96v-97.68c127.76-12.92 233.76-102.56 272.32-222.32h15.68c88.366 0 160-71.634 160-160v0-64c0-35.346-28.654-64-64-64v0zM192 480c-53.019 0-96-42.981-96-96v0-64h96v128q0 16 1.56 32zM928 384c0 53.019-42.981 96-96 96v0h-2c1.253-10.661 1.979-23.034 2-35.572l0-0.028v-124.4h96z",x:"M832 128h-640c-35.346 0-64 28.654-64 64v0 640c0 35.346 28.654 64 64 64v0h640c35.346 0 64-28.654 64-64v0-640c0-35.346-28.654-64-64-64v0zM726.64 681.36c5.794 5.794 9.378 13.799 9.378 22.64 0 17.683-14.335 32.018-32.018 32.018-8.841 0-16.846-3.584-22.64-9.378l-169.36-169.4-169.36 169.4c-5.794 5.794-13.799 9.378-22.64 9.378-17.683 0-32.018-14.335-32.018-32.018 0-8.841 3.584-16.846 9.378-22.64l169.4-169.36-169.4-169.36c-5.794-5.794-9.378-13.799-9.378-22.64 0-17.683 14.335-32.018 32.018-32.018 8.841 0 16.846 3.584 22.64 9.378l169.36 169.4 169.36-169.4c5.794-5.794 13.799-9.378 22.64-9.378 17.683 0 32.018 14.335 32.018 32.018 0 8.841-3.584 16.846-9.378 22.64l-169.4 169.36z"};function M(t,a="pd-icon"){let o=$[t]||$.trophy;return`<svg class="${a}" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="${o}"/></svg>`}var P={1:"center",2:"left",3:"right"},T=t=>`${t}${t%100>=11&&t%100<=13?"th":["th","st","nd","rd"][t%10]||"th"}`,z=()=>globalThis.matchMedia?.("(prefers-reduced-motion: reduce)").matches,L=["#c8102e","#f1c232","#3b77b8","#3f8f4f","#e8772e","#7a4a93"],S=[["score","Score","int"],["deliveries","Deliveries","int"],["happy","Happy customers","int"],["unhappy","Unhappy customers","int"],["happiness","Happiness","percent"],["items","Groceries","int"],["km","Km driven","km"],["jamKm","Km in jams","km"],["robotSteps","Robot steps","int"],["shelfPicks","Shelf picks","int"],["redLights","Red lights","int"],["crossings","Pedestrian stops","int"],["trips","Trips","int"],["ordersPerTrip","Orders per trip","decimal"],["fullTrucks","Full trucks","int"],["idlePercent","Trucks idle","percent"],["leadPercent","Time in the lead","percent"],["comeback","Places climbed","int"],["rushBonus","Rush bonus","points"],["bestDelivery","Best drop","int"],["fastestMinutes","Fastest delivery","minutes"],["latestMinutes","Latest delivery","minutes"],["farthestKm","Farthest customer","km"],["firstDelivery","First drop","clock"],["nightDeliveries","After 20:00","int"],["lateTax","Points lost to lateness","int"],["undelivered","Never delivered","int"],["rejected","Actions refused","int"],["sniped","Order fights lost","int"]];function v(t,a){return t==null?"\u2013":a==="km"?t.toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1}):a==="decimal"?t.toLocaleString("en-US",{maximumFractionDigits:1}):a==="minutes"?t>=60?`${Math.floor(t/60)} h ${t%60} min`:`${t} min`:a==="clock"?`${String(Math.floor(t/3600)%24).padStart(2,"0")}:${String(Math.floor(t/60)%60).padStart(2,"0")}`:a==="percent"?`${t}%`:a==="points"?`+${Math.round(t).toLocaleString("en-US")}`:Math.round(t).toLocaleString("en-US")}function e(t,a,o){let n=document.createElement(t);return a&&(n.className=a),o!=null&&(n.textContent=o),n}function k(t,a){let o=t?.[a]||{};return{look:y(o.look),colour:o.colour||"#c8102e"}}function F(t,a,o,n){let i=globalThis.GroceryBot?.live;i&&!z()?t.gbLive=i(t,{shape:a.shape,color:a.color,kind:a.eyes,state:o,mood:n,shadow:!1}):t.innerHTML=w(n==="happy"?{...a,eyes:"happy"}:a,"pd-still")}function V(t,a,o,n){if(t.textContent=v(a,o),z()||!["int","km","points","percent"].includes(o)||!a)return;t.textContent=v(0,o);let i=performance.now()+n,r=900,s=c=>{let l=Math.min(1,Math.max(0,(c-i)/r)),d=1-(1-l)**3,p=o==="km"?Math.round(a*d*10)/10:Math.round(a*d);t.textContent=v(p,o),l<1&&requestAnimationFrame(s)};requestAnimationFrame(s)}function Q(t,a){let o=e("div","pd-award");o.dataset.tone=t.tone;let n=e("span","pd-award-icon");n.innerHTML=M(t.icon);let i=e("strong","pd-award-value");return V(i,t.value,t.format,a),o.append(n,e("span","pd-award-title",t.rank>1?`${t.title} \xB7 ${T(t.rank)}`:t.title),i,e("span","pd-award-unit",t.unit)),o.title=t.how,o}function N(t,a,o){let{look:n,colour:i}=k(o,t.id),r=e("li","pd-spot");r.dataset.slot=P[a+1],r.dataset.place=String(t.placement),r.style.setProperty("--seat",i);let s=e("div","pd-avatar"),c=e("div","pd-jumper"),l=e("span","pd-bot");c.append(l),s.append(c,e("span","pd-shadow")),F(l,n,a===0?"idle":"hello",a===0?"happy":void 0);let d=e("div","pd-who"),p=e("p","pd-score");p.append(e("strong","",v(t.score,"int")),` pts \xB7 ${t.deliveries} ${t.deliveries===1?"delivery":"deliveries"}`),d.append(e("p","pd-name",t.name),p);let h=e("div","pd-step");h.append(e("span","pd-rank",String(t.placement)),e("span","sr-only",`${T(t.placement)} place`));let m=e("div","pd-top");return m.append(s,d,h),r.append(m),t.award?r.append(Q(t.award,1300+a*150)):r.append(e("div","pd-award is-empty")),r}function R(){let t=e("div","pd-confetti");t.setAttribute("aria-hidden","true");for(let a=0;a<36;a++){let o=e("i");o.style.cssText=`--x:${a*37%100}%;--d:${a*53%40/10}s;--r:${a*71%360}deg;--c:${L[a%L.length]};--s:${4+a%3*2}s`,t.append(o)}return t}function I(t,a,o){let n=e("li","pd-tile");n.dataset.tone=t.tone;let i=e("span","pd-tile-icon");i.innerHTML=M(t.icon);let r=e("div","pd-tile-body"),s=e("p","pd-tile-who");t.winners.forEach((l,d)=>{let{look:p,colour:h}=k(a,l),m=e("span","pd-face");m.style.setProperty("--seat",h),m.innerHTML=w(p);let g=t.winners.length-1-d,u=e("span","pd-winner");u.append(m,e("span","",`${o[l]||l}${g>1?",":g===1?" &":""}`)),s.append(u)});let c=e("p","pd-tile-value");return c.append(e("strong","",t.display),` ${t.unit}`),r.append(e("h4","pd-tile-title",t.title),s,c,e("p","pd-tile-how",t.how)),n.append(i,r),n}function U(t){let a=t.match||{},o=[[v(a.km,"km"),"km driven by every fleet"],[v(a.deliveries,"int"),a.deliveries===1?"order delivered":"orders delivered"],[v(a.robotSteps,"int"),"shop-robot steps"],[v(a.leadChanges,"int"),a.leadChanges===1?"lead change":"lead changes"],[v(a.redLights,"int"),a.redLights===1?"red light":"red lights"]],n=e("ul","pd-numbers");for(let[i,r]of o){let s=e("li");s.append(e("strong","",i),e("span","",r)),n.append(s)}return n}function G(t,a){let o=e("details","pd-table");o.append(e("summary","","Every bot\u2019s stats"));let n=e("div","pd-table-wrap"),i=e("table"),r=e("tr"),s=e("th","pd-sticky","Bot");s.scope="col",r.append(e("th","num","#"),s,...S.map(([,p])=>{let h=e("th","num",p);return h.scope="col",h}));let c=e("thead");c.append(r);let l=e("tbody");for(let p of t.players){let h=e("tr"),{look:m,colour:g}=k(a,p.id),u=e("th","pd-sticky");u.scope="row";let x=e("span","pd-face");x.style.setProperty("--seat",g),x.innerHTML=w(m),u.append(x,e("span","",p.name)),h.append(e("td","num",String(p.placement)),u,...S.map(([b,,f])=>e("td","num",v(p[b],f)))),l.append(h)}i.append(c,l),n.append(i);let d=t.rules||{};return o.append(n,e("p","pd-fine",`Happy customers got their groceries at ${d.happyAt??80} % happiness or more; unhappy ones under ${d.unhappyBelow??50} %, or never. Times are on the game clock.`)),o}function j({stats:t,players:a={},subtitle:o=""}){let n=Object.fromEntries(t.players.map(f=>[f.id,f.name])),i=e("dialog","pd");i.setAttribute("aria-labelledby","pd-title");let r=e("div","pd-sheet"),s=e("header","pd-head"),c=e("button","pd-close");c.type="button",c.setAttribute("aria-label","Close the podium"),c.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>',c.addEventListener("click",()=>i.close());let l=e("div");l.append(e("p","pd-eyebrow",o),e("h2","pd-title","Final podium")),l.lastChild.id="pd-title",s.append(l,c);let d=e("div","pd-stage"),p=e("ol","pd-podium");p.dataset.count=String(t.podium.length),t.podium.forEach((f,E)=>p.append(N(f,E,a))),z()||d.append(R()),d.append(p);let h=e("section","pd-section"),m=e("ul","pd-tiles");for(let f of t.awards)m.append(I(f,a,n));h.append(e("h3","","Match awards"),m);let g=e("section","pd-section");g.append(e("h3","","The day in numbers"),U(t));let u=e("footer","pd-foot"),x=e("button","pd-primary","Back to the map");x.type="button",x.addEventListener("click",()=>i.close());let b=e("a","pd-link","Leaderboard");return b.href="/leaderboard",u.append(x,b),r.append(s,d,h,g,G(t,a),u),i.append(r),i.addEventListener("click",f=>{f.target===i&&i.close()}),i.addEventListener("close",()=>i.querySelectorAll(".pd-bot").forEach(f=>f.gbLive?.stop?.())),i}window.PodiumDemo={podium:j};})();
+</script>
+<script type="application/json" id="podium-data">{"stats":{"players":[{"id":"p1","name":"Bananas Express","placement":1,"score":4292,"deliveries":46,"onTime":2,"undelivered":4,"happy":37,"unhappy":4,"happiness":77,"items":253,"km":54.4,"jamKm":2.6,"robotSteps":10324,"shelfPicks":277,"redLights":0,"crossings":37,"stopSigns":0,"trips":23,"fullTrucks":0,"ordersPerTrip":2.0,"idlePercent":3,"rejected":0,"sniped":0,"leadPercent":55,"comeback":2,"rushBonus":111,"bestDelivery":128,"fastestMinutes":88,"latestMinutes":265,"farthestKm":1.9,"firstDelivery":30800,"nightDeliveries":11,"lateTax":861},{"id":"p3","name":"Oat Runner","placement":2,"score":4230,"deliveries":41,"onTime":1,"undelivered":1,"happy":32,"unhappy":1,"happiness":82,"items":230,"km":74.8,"jamKm":2.9,"robotSteps":9459,"shelfPicks":237,"redLights":4,"crossings":17,"stopSigns":0,"trips":21,"fullTrucks":0,"ordersPerTrip":2.0,"idlePercent":1,"rejected":1,"sniped":1,"leadPercent":5,"comeback":3,"rushBonus":31,"bestDelivery":134,"fastestMinutes":125,"latestMinutes":242,"farthestKm":2.3,"firstDelivery":33180,"nightDeliveries":10,"lateTax":856},{"id":"p5","name":"Kale Storm","placement":3,"score":3987,"deliveries":44,"onTime":0,"undelivered":4,"happy":31,"unhappy":4,"happiness":75,"items":238,"km":49.7,"jamKm":2.4,"robotSteps":9857,"shelfPicks":262,"redLights":2,"crossings":31,"stopSigns":0,"trips":22,"fullTrucks":0,"ordersPerTrip":2.0,"idlePercent":3,"rejected":0,"sniped":0,"leadPercent":22,"comeback":2,"rushBonus":134,"bestDelivery":133,"fastestMinutes":124,"latestMinutes":238,"farthestKm":1.5,"firstDelivery":32484,"nightDeliveries":10,"lateTax":928},{"id":"p4","name":"Milk Rocket","placement":4,"score":379,"deliveries":4,"onTime":0,"undelivered":0,"happy":1,"unhappy":0,"happiness":74,"items":19,"km":16.6,"jamKm":0.8,"robotSteps":259,"shelfPicks":19,"redLights":1,"crossings":7,"stopSigns":0,"trips":4,"fullTrucks":0,"ordersPerTrip":1.0,"idlePercent":80,"rejected":0,"sniped":0,"leadPercent":3,"comeback":0,"rushBonus":21,"bestDelivery":129,"fastestMinutes":159,"latestMinutes":212,"farthestKm":3.8,"firstDelivery":31112,"nightDeliveries":1,"lateTax":133},{"id":"p6","name":"Pasta Pilot","placement":5,"score":237,"deliveries":3,"onTime":0,"undelivered":0,"happy":1,"unhappy":0,"happiness":70,"items":20,"km":16.9,"jamKm":0.9,"robotSteps":240,"shelfPicks":20,"redLights":5,"crossings":13,"stopSigns":0,"trips":3,"fullTrucks":0,"ordersPerTrip":1.0,"idlePercent":80,"rejected":2,"sniped":2,"leadPercent":0,"comeback":1,"rushBonus":0,"bestDelivery":108,"fastestMinutes":281,"latestMinutes":238,"farthestKm":3.7,"firstDelivery":38461,"nightDeliveries":1,"lateTax":99},{"id":"p2","name":"Turbo Turnip","placement":6,"score":221,"deliveries":3,"onTime":0,"undelivered":1,"happy":1,"unhappy":1,"happiness":55,"items":14,"km":15.7,"jamKm":0.5,"robotSteps":263,"shelfPicks":19,"redLights":0,"crossings":21,"stopSigns":0,"trips":4,"fullTrucks":0,"ordersPerTrip":1.0,"idlePercent":80,"rejected":1,"sniped":1,"leadPercent":0,"comeback":0,"rushBonus":20,"bestDelivery":121,"fastestMinutes":175,"latestMinutes":209,"farthestKm":2.8,"firstDelivery":32101,"nightDeliveries":0,"lateTax":94}],"awards":[{"id":"road_warrior","title":"Road Warrior","how":"Most kilometres on the truck odometers","icon":"road-horizon","tone":"glory","stat":"km","value":74.8,"format":"km","display":"74.8","unit":"km driven","rank":1,"winners":["p3"]},{"id":"step_counter","title":"Step Counter","how":"Shop robots walked the furthest","icon":"footprints","tone":"glory","stat":"robotSteps","value":10324,"format":"int","display":"10,324","unit":"robot steps in the shop","rank":1,"winners":["p1"]},{"id":"grumpy","title":"Grumpy Magnet","how":"Most customers under 50 % happy, or never delivered","icon":"smiley-angry","tone":"cheeky","stat":"unhappy","value":4,"format":"int","display":"4","unit":"unhappy customers","rank":1,"winners":["p1","p5"]},{"id":"whisperer","title":"Customer Whisperer","how":"Most deliveries at 80 % happiness or more","icon":"smiley","tone":"glory","stat":"happy","value":37,"format":"int","display":"37","unit":"happy customers","rank":1,"winners":["p1"]},{"id":"zebra","title":"Zebra Crossing Saint","how":"Let the most pedestrians cross","icon":"person-simple-walk","tone":"glory","stat":"crossings","value":37,"format":"int","display":"37","unit":"stops for pedestrians","rank":1,"winners":["p1"]},{"id":"jam_survivor","title":"Jam Survivor","how":"Drove the furthest on jammed roads","icon":"traffic-cone","tone":"cheeky","stat":"jamKm","value":2.9,"format":"km","display":"2.9","unit":"km crawled through jams","rank":1,"winners":["p3"]},{"id":"speed_demon","title":"Speed Demon","how":"The quickest delivery of the day","icon":"timer","tone":"glory","stat":"fastestMinutes","value":88,"format":"minutes","display":"1 h 28 min","unit":"from order to doorstep","rank":1,"winners":["p1"]},{"id":"fashionably_late","title":"Fashionably Late","how":"The latest delivery that still arrived","icon":"hourglass-low","tone":"cheeky","stat":"latestMinutes","value":265,"format":"minutes","display":"4 h 25 min","unit":"late, and still delivered","rank":1,"winners":["p1"]},{"id":"red_light","title":"Red Light Magnet","how":"Stopped at the most red lights","icon":"traffic-signal","tone":"cheeky","stat":"redLights","value":5,"format":"int","display":"5","unit":"red lights waited out","rank":1,"winners":["p6"]},{"id":"jackpot","title":"Jackpot","how":"The biggest single delivery","icon":"coins","tone":"glory","stat":"bestDelivery","value":134,"format":"int","display":"134","unit":"points in one drop","rank":1,"winners":["p3"]},{"id":"sniped","title":"Sniped!","how":"Lost the most contested claims to a rival","icon":"crosshair","tone":"cheeky","stat":"sniped","value":2,"format":"int","display":"2","unit":"order fights lost","rank":1,"winners":["p6"]},{"id":"comeback","title":"Comeback Kid","how":"Biggest climb from their lowest place","icon":"trend-up","tone":"glory","stat":"comeback","value":3,"format":"int","display":"3","unit":"places climbed","rank":1,"winners":["p3"]},{"id":"long_hauler","title":"Long Hauler","how":"Delivered to the customer farthest from their shop","icon":"map-trifold","tone":"glory","stat":"farthestKm","value":3.8,"format":"km","display":"3.8","unit":"km to one customer","rank":1,"winners":["p4"]},{"id":"rush_hero","title":"Rush Hour Hero","how":"Most bonus points earned in rush hour","icon":"lightning","tone":"glory","stat":"rushBonus","value":134,"format":"points","display":"+134","unit":"rush-hour bonus points","rank":1,"winners":["p5"]},{"id":"couch_potato","title":"Couch Potato","how":"Trucks napped at the shop the longest","icon":"couch","tone":"cheeky","stat":"idlePercent","value":80,"format":"percent","display":"80%","unit":"of truck time parked with nothing to do","rank":1,"winners":["p4","p6","p2"]},{"id":"stubborn","title":"Stubborn","how":"Sent the most actions the server said no to","icon":"prohibit","tone":"cheeky","stat":"rejected","value":2,"format":"int","display":"2","unit":"actions refused","rank":1,"winners":["p6"]},{"id":"pole_position","title":"Pole Position","how":"Led the standings the longest","icon":"flag-checkered","tone":"glory","stat":"leadPercent","value":55,"format":"percent","display":"55%","unit":"of the day in the lead","rank":1,"winners":["p1"]},{"id":"night_owl","title":"Night Owl","how":"Most deliveries after dark","icon":"moon-stars","tone":"glory","stat":"nightDeliveries","value":11,"format":"int","display":"11","unit":"deliveries after 20:00","rank":1,"winners":["p1"]},{"id":"early_bird","title":"Early Bird","how":"Made the day's first delivery","icon":"sun-horizon","tone":"glory","stat":"firstDelivery","value":30800,"format":"clock","display":"08:33","unit":"first drop of the day","rank":1,"winners":["p1"]},{"id":"pack_mule","title":"Pack Mule","how":"Most grocery items delivered","icon":"basket","tone":"glory","stat":"items","value":253,"format":"int","display":"253","unit":"grocery items hauled","rank":1,"winners":["p1"]},{"id":"ghosted","title":"Ghosted","how":"Most claimed orders that never arrived","icon":"ghost","tone":"cheeky","stat":"undelivered","value":4,"format":"int","display":"4","unit":"customers never got their order","rank":1,"winners":["p1","p5"]},{"id":"delivery_machine","title":"Delivery Machine","how":"Most orders delivered","icon":"package","tone":"glory","stat":"deliveries","value":46,"format":"int","display":"46","unit":"deliveries","rank":1,"winners":["p1"]}],"podium":[{"id":"p1","name":"Bananas Express","placement":1,"score":4292,"deliveries":46,"award":{"id":"step_counter","title":"Step Counter","how":"Shop robots walked the furthest","icon":"footprints","tone":"glory","stat":"robotSteps","value":10324,"format":"int","display":"10,324","unit":"robot steps in the shop","rank":1}},{"id":"p3","name":"Oat Runner","placement":2,"score":4230,"deliveries":41,"award":{"id":"road_warrior","title":"Road Warrior","how":"Most kilometres on the truck odometers","icon":"road-horizon","tone":"glory","stat":"km","value":74.8,"format":"km","display":"74.8","unit":"km driven","rank":1}},{"id":"p5","name":"Kale Storm","placement":3,"score":3987,"deliveries":44,"award":{"id":"grumpy","title":"Grumpy Magnet","how":"Most customers under 50 % happy, or never delivered","icon":"smiley-angry","tone":"cheeky","stat":"unhappy","value":4,"format":"int","display":"4","unit":"unhappy customers","rank":1}}],"match":{"km":228.1,"deliveries":141,"robotSteps":30402,"redLights":12,"leadChanges":16},"rules":{"happyAt":80,"unhappyBelow":50}},"players":{"p1":{"look":{"shape":"bean","color":"red","eyes":"happy","carriage":"box","head":"flat","visor":"none","decal":"stripe"},"colour":"#c8102e"},"p2":{"look":{"shape":"round","color":"milk","eyes":"dots","carriage":"box","head":"flat","visor":"none","decal":"stripe"},"colour":"#3b77b8"},"p3":{"look":{"shape":"box","color":"leaf","eyes":"wink","carriage":"box","head":"flat","visor":"none","decal":"stripe"},"colour":"#3f8f4f"},"p4":{"look":{"shape":"tall","color":"plum","eyes":"visor","carriage":"box","head":"flat","visor":"none","decal":"stripe"},"colour":"#7a4a93"},"p5":{"look":{"shape":"dome","color":"carrot","eyes":"sleepy","carriage":"box","head":"flat","visor":"none","decal":"stripe"},"colour":"#e8772e"},"p6":{"look":{"shape":"round","color":"lemon","eyes":"dots","carriage":"box","head":"flat","visor":"none","decal":"stripe"},"colour":"#f1c232"}}}</script>
+<script>
+(() => {
+  const root = document.getElementById('demo');
+  let data;
+  try { data = JSON.parse(document.getElementById('podium-data').textContent); } catch { return; }
+  function mount() {
+    root.querySelectorAll('.pd-bot').forEach(node => node.gbLive?.stop?.());
+    const dialog = window.PodiumDemo.podium({ stats: data.stats, players: data.players, subtitle: 'Game K7QM2X · medium traffic' });
+    const sheet = document.createElement('div');
+    sheet.className = 'pd pd-inline';
+    sheet.setAttribute('role', 'region');
+    sheet.setAttribute('aria-label', 'Final podium, live preview');
+    sheet.append(...dialog.childNodes);
+    root.replaceChildren(sheet);
+  }
+  mount();
+  document.getElementById('replay').addEventListener('click', mount);
+})();
+</script>
+
+</body>
+</html>
